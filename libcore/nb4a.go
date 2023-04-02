@@ -83,7 +83,7 @@ func InitCore(process, cachePath, internalAssets, externalAssets string,
 
 		// bg
 		if isBgProcess {
-			go verifyAPK()
+// 			go verifyAPK()
 			extractAssets()
 		}
 	}()
