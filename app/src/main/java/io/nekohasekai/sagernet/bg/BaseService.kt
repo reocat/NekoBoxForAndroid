@@ -22,6 +22,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import libcore.Libcore
 import moe.matsuri.nb4a.Protocols
+import moe.matsuri.nb4a.utils.Util
 import java.net.UnknownHostException
 
 class BaseService {
@@ -44,11 +45,19 @@ class BaseService {
         var proxy: ProxyInstance? = null
         var notification: ServiceNotification? = null
 
-        val receiver = broadcastReceiver { _, intent ->
+        val receiver = broadcastReceiver { ctx, intent ->
             when (intent.action) {
                 Intent.ACTION_SHUTDOWN -> service.persistStats()
                 Action.RELOAD -> service.reload()
-                Action.SWITCH_WAKE_LOCK -> runOnDefaultDispatcher { service.switchWakeLock() }
+                // Action.SWITCH_WAKE_LOCK -> runOnDefaultDispatcher { service.switchWakeLock() }
+                Action.RESET_UPSTREAM_CONNECTIONS -> runOnDefaultDispatcher {
+                    Libcore.resetAllConnections(true)
+                    runOnMainDispatcher {
+                        Util.collapseStatusBar(ctx)
+                        Toast.makeText(ctx, "Reset upstream connections done", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
                 else -> service.stopRunner()
             }
         }
@@ -80,7 +89,9 @@ class BaseService {
         override fun getProfileName(): String = data?.proxy?.profile?.displayName() ?: "Idle"
 
         override fun registerCallback(cb: ISagerNetServiceCallback, id: Int) {
-            callbacks.register(cb)
+            if (!callbackIdMap.contains(cb)) {
+                callbacks.register(cb)
+            }
             callbackIdMap[cb] = id
         }
 
@@ -309,7 +320,8 @@ class BaseService {
                     addAction(Action.RELOAD)
                     addAction(Intent.ACTION_SHUTDOWN)
                     addAction(Action.CLOSE)
-                    addAction(Action.SWITCH_WAKE_LOCK)
+                    // addAction(Action.SWITCH_WAKE_LOCK)
+                    addAction(Action.RESET_UPSTREAM_CONNECTIONS)
                 }, "$packageName.SERVICE", null)
                 data.closeReceiverRegistered = true
             }

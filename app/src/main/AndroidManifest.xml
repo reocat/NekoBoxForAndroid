@@ -17,6 +17,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
 
     <uses-permission
         android:name="android.permission.QUERY_ALL_PACKAGES"
@@ -38,9 +39,6 @@
         android:required="false" />
 
     <queries>
-        <intent>
-            <action android:name="com.github.shadowsocks.plugin.ACTION_NATIVE_PLUGIN" />
-        </intent>
         <intent>
             <action android:name="io.nekohasekai.sagernet.plugin.ACTION_NATIVE_PLUGIN" />
         </intent>
@@ -293,18 +291,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/cache_paths" />
         </provider>
-
-        <receiver
-            android:name="io.nekohasekai.sagernet.BootReceiver"
-            android:enabled="false"
-            android:exported="true"
-            android:process=":bg">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
-                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
-            </intent-filter>
-        </receiver>
 
         <provider
             android:name="androidx.startup.InitializationProvider"

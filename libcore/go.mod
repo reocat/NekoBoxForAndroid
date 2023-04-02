@@ -3,13 +3,14 @@ module libcore
 go 1.18
 
 require (
+	github.com/avast/apkverifier v0.0.0-20221110131049-7720fc1ebef0
 	github.com/codeclysm/extract v2.2.0+incompatible
 	github.com/matsuridayo/libneko v0.0.0-20230315005352-9d7e3f3a79d1
-	github.com/matsuridayo/sing-box-extra v0.0.0-20230327081452-742054d97340
-	github.com/miekg/dns v1.1.52
-	github.com/sagernet/sing v0.2.1
-	github.com/sagernet/sing-box v1.2.1
-	github.com/sagernet/sing-dns v0.1.4
+	github.com/matsuridayo/sing-box-extra v0.0.0-20230331092806-0c9ba905d3d7
+	github.com/miekg/dns v1.1.53
+	github.com/sagernet/sing v0.2.2-0.20230402035613-6d63c1a7dca5
+	github.com/sagernet/sing-box v1.2.3-0.20230402040603-f8be48401998
+	github.com/sagernet/sing-dns v0.1.5-0.20230402033314-a752be02978d
 	github.com/sagernet/sing-tun v0.1.4-0.20230326080954-8848c0e4cbab
 	github.com/ulikunitz/xz v0.5.10
 	golang.org/x/mobile v0.0.0-20220722155234-aaac322e2105
@@ -20,6 +21,7 @@ require (
 	github.com/Dreamacro/clash v1.14.0 // indirect
 	github.com/ajg/form v1.5.1 // indirect
 	github.com/andybalholm/brotli v1.0.5 // indirect
+	github.com/avast/apkparser v0.0.0-20221012080151-bfc57d4d0502 // indirect
 	github.com/caddyserver/certmagic v0.17.2 // indirect
 	github.com/cloudflare/circl v1.2.1-0.20221019164342-6ab4dfed8f3c // indirect
 	github.com/cretz/bine v0.2.0 // indirect
@@ -91,3 +93,5 @@ require (
 // replace github.com/matsuridayo/libneko => ../../libneko
 
 // replace github.com/matsuridayo/sing-box-extra => ../../sing-box-extra
+
+replace github.com/sagernet/sing-dns => github.com/matsuridayo/sing-dns v0.0.0-20230402050810-781b80b9110f
