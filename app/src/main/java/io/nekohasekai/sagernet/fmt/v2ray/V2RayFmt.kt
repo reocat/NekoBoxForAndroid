@@ -207,6 +207,13 @@ fun StandardV2RayBean.parseDuckSoft(url: HttpUrl) {
         }
     }
 
+    // maybe from matsuri vmess exoprt
+    if (this is VMessBean && !isVLESS) {
+        url.queryParameter("encryption")?.let {
+            encryption = it
+        }
+    }
+
     url.queryParameter("packetEncoding")?.let {
         when (it) {
             "packet" -> packetEncoding = 1
@@ -563,7 +570,7 @@ fun buildSingBoxOutboundTLS(bean: StandardV2RayBean): OutboundTLSOptions? {
                 fingerprint = bean.utlsFingerprint
             }
         }
-        if (bean.realityPubKey.isNotBlank() && bean.realityShortId.isNotBlank()) {
+        if (bean.realityPubKey.isNotBlank()) {
             reality = OutboundRealityOptions().apply {
                 enabled = true
                 public_key = bean.realityPubKey
