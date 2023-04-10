@@ -101,7 +101,7 @@ fun buildConfig(
     val globalOutbounds = HashMap<Long, String>()
     val selectorNames = ArrayList<String>()
     val group = SagerDatabase.groupDao.getById(proxy.groupId)
-    var optionsToMerge = ""
+    val optionsToMerge = proxy.requireBean().customConfigJson ?: ""
 
     fun ProxyEntity.resolveChainInternal(): MutableList<ProxyEntity> {
         val bean = requireBean()
@@ -424,9 +424,6 @@ fun buildConfig(
                     if (bean.customOutboundJson.isNotBlank()) {
                         mergeJSON(bean.customOutboundJson, currentOutbound)
                     }
-                    if (index == 0 && bean.customConfigJson.isNotBlank()) {
-                        optionsToMerge = bean.customConfigJson
-                    }
                 }
 
                 pastEntity?.requireBean()?.apply {
@@ -656,6 +653,13 @@ fun buildConfig(
             var serverAddr = it.serverAddress
             if (it is HysteriaBean && it.isMultiPort()) {
                 serverAddr = it.serverAddress.substringBeforeLast(":")
+            }
+            if (it is ConfigBean) {
+                var config = mutableMapOf<String, Any>()
+                config = gson.fromJson(it.config, config.javaClass)
+                config["server"]?.apply {
+                    serverAddr = toString()
+                }
             }
 
             if (!serverAddr.isIpAddress()) {
