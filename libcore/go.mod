@@ -7,7 +7,7 @@ require (
 	github.com/matsuridayo/libneko v0.0.0-20230315005352-9d7e3f3a79d1
 	github.com/matsuridayo/sing-box-extra v0.0.0-20230413082224-fd7941c8076b
 	github.com/miekg/dns v1.1.53
-	github.com/sagernet/sing v0.2.3-0.20230409145127-a82d82e55914
+	github.com/sagernet/sing v0.2.3-0.20230413105021-520dd58fb01d
 	github.com/sagernet/sing-box v1.2.4-0.20230408011350-68439705360e
 	github.com/sagernet/sing-dns v0.1.5-0.20230408004833-5adaf486d440
 	github.com/sagernet/sing-tun v0.1.4-0.20230326080954-8848c0e4cbab
@@ -17,7 +17,7 @@ require (
 
 require (
 	berty.tech/go-libtor v1.0.385 // indirect
-	github.com/Dreamacro/clash v1.14.0 // indirect
+	github.com/Dreamacro/clash v1.15.0 // indirect
 	github.com/ajg/form v1.5.1 // indirect
 	github.com/andybalholm/brotli v1.0.5 // indirect
 	github.com/caddyserver/certmagic v0.17.2 // indirect
@@ -60,9 +60,9 @@ require (
 	github.com/sagernet/netlink v0.0.0-20220905062125-8043b4a9aa97 // indirect
 	github.com/sagernet/quic-go v0.0.0-20230202071646-a8c8afb18b32 // indirect
 	github.com/sagernet/reality v0.0.0-20230406110435-ee17307e7691 // indirect
-	github.com/sagernet/sing-shadowsocks v0.2.1-0.20230409094647-5c830455eb9b // indirect
+	github.com/sagernet/sing-shadowsocks v0.2.1-0.20230412123110-1a7c32b4e2e7 // indirect
 	github.com/sagernet/sing-shadowtls v0.1.1-0.20230409094821-9abef019436f // indirect
-	github.com/sagernet/sing-vmess v0.1.4-0.20230409094745-dc784c704250 // indirect
+	github.com/sagernet/sing-vmess v0.1.4-0.20230412122845-9470e68f5e45 // indirect
 	github.com/sagernet/smux v0.0.0-20230312102458-337ec2a5af37 // indirect
 	github.com/sagernet/tfo-go v0.0.0-20230303015439-ffcfd8c41cf9 // indirect
 	github.com/sagernet/utls v0.0.0-20230309024959-6732c2ab36f2 // indirect
@@ -97,6 +97,6 @@ require (
 
 // replace github.com/matsuridayo/sing-box-extra => ../../sing-box-extra
 
-replace github.com/sagernet/sing-box => github.com/maskedeken/sing-box v1.2.4-0.20230410073121-ef0340206daf
+replace github.com/sagernet/sing-box => github.com/maskedeken/sing-box v1.2.4-0.20230415053433-15455229be06
 
 replace github.com/sagernet/sing-dns => github.com/matsuridayo/sing-dns v0.0.0-20230410025504-c609bffff165
