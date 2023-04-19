@@ -98,3 +98,5 @@ require (
 // replace github.com/matsuridayo/sing-box-extra => ../../sing-box-extra
 
 replace github.com/sagernet/sing-dns => github.com/matsuridayo/sing-dns v0.0.0-20230410025504-c609bffff165
+
+replace github.com/sagernet/sing-box => github.com/matsuridayo/sing-box v0.0.0-20230419043603-837f46e2b7db
