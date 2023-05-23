@@ -103,3 +103,7 @@ replace github.com/matsuridayo/sing-box-extra v1.0.0 => ../../sing-box-extra
 replace github.com/sagernet/sing-box v1.0.0 => ../../sing-box
 
 // replace github.com/sagernet/sing-dns v1.0.0 => ../../sing-dns
+
+replace github.com/sagernet/sing-mux => ../../sing-mux
+
+replace github.com/sagernet/sing-shadowtls => ../../sing-shadowtls

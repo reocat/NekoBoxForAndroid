@@ -19,22 +19,23 @@ git checkout "$COMMIT_SING_BOX_EXTRA"
 
 ENV_SING_BOX_EXTRA=1
 source $SRC_ROOT/buildScript/lib/core/get_source_env.sh
+NO_ENV=1 ./libs/get_source.sh
 popd
 
 ####
-if [ ! -d "sing-box" ]; then
-  git clone --no-checkout https://github.com/maskedeken/sing-box.git
+if [ ! -d "sing-mux" ]; then
+  git clone --no-checkout https://github.com/maskedeken/sing-mux.git
 fi
-pushd sing-box
-git checkout "$COMMIT_SING_BOX"
+pushd sing-mux
+git checkout "$COMMIT_SING_MUX"
 popd
 
 ####
-if [ ! -d "libneko" ]; then
-  git clone --no-checkout https://github.com/MatsuriDayo/libneko.git
+if [ ! -d "sing-shadowtls" ]; then
+  git clone --no-checkout https://github.com/maskedeken/sing-shadowtls.git
 fi
-pushd libneko
-git checkout "$COMMIT_LIBNEKO"
+pushd sing-shadowtls
+git checkout "$COMMIT_SING_SHADOWTLS"
 popd
 
 popd
