@@ -26,6 +26,7 @@ class ShadowsocksSettingsActivity : ProfileSettingsActivity<ShadowsocksBean>() {
     private val pluginConfig =
         pbm.add(PreferenceBinding(Type.Text, "pluginConfig").apply { disable = true })
     private val sUoT = pbm.add(PreferenceBinding(Type.Bool, "sUoT"))
+    private val reducedIvHeadEntropy = pbm.add(PreferenceBinding(Type.Bool, "reducedIvHeadEntropy"))
 
     override fun ShadowsocksBean.init() {
         pbm.writeToCacheAll(this)

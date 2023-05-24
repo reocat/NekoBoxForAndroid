@@ -3301,6 +3301,7 @@ public class SingBoxOptions {
 
         public MultiplexOptions multiplex;
 
+        public Boolean reducedIvHeadEntropy;
     }
 
     public static class Outbound_VMessOptions extends Outbound {

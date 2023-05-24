@@ -47,10 +47,16 @@
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="sing-box server">
+    <PreferenceCategory app:title="@string/experimental_settings">
         <SwitchPreference
             app:key="sUoT"
             app:title="UDP over TCP" />
+        <SwitchPreference
+            app:icon="@drawable/baseline_construction_24"
+            app:key="reducedIvHeadEntropy"
+            app:summary="@string/reduced_iv_head_entropy"
+            app:title="ReducedIvHeadEntropy"
+            app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -119,6 +119,7 @@ fun buildSingBoxOutboundShadowsocksBean(bean: ShadowsocksBean): SingBoxOptions.O
                 enabled = true
             }
         }
+        reducedIvHeadEntropy = bean.reducedIvHeadEntropy
         if (bean.plugin.isNotBlank()) {
             plugin = bean.plugin.substringBefore(";")
             plugin_opts = bean.plugin.substringAfter(";")

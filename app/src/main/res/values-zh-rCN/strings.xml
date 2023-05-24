@@ -475,4 +475,7 @@
     <string name="log_level_help">长按设置项以设置缓冲区大小。</string>
     <string name="test_concurrency">测试并发</string>
     <string name="mux_type">Mux 协议</string>
+
+    <string name="reduced_iv_head_entropy">这是GFWReport针对GFW对随机流协议的阻塞行为而提出的对策。
+\n\n这个选项将IV的前6个字节重新映射为可打印的字符，启用本选项后，私密网络路径上的任何人都有可能识别该协议。</string>
 </resources>

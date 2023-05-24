@@ -104,6 +104,6 @@ replace github.com/sagernet/sing-box v1.0.0 => ../../sing-box
 
 // replace github.com/sagernet/sing-dns v1.0.0 => ../../sing-dns
 
-replace github.com/sagernet/sing-mux => ../../sing-mux
+replace github.com/sagernet/sing-mux => github.com/maskedeken/sing-mux v0.0.0-20230523030649-1fdea7459a3f
 
-replace github.com/sagernet/sing-shadowtls => ../../sing-shadowtls
+replace github.com/sagernet/sing-shadowtls => github.com/maskedeken/sing-shadowtls v0.0.0-20230424095609-b223c08c678d
