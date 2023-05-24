@@ -18,7 +18,7 @@ public class ShadowsocksBean extends AbstractBean {
     public String plugin;
 
     public Boolean sUoT;
-    public Boolean reducedIvHeadEntropy
+    public Boolean reducedIvHeadEntropy;
 
     @Override
     public void initializeDefaultValues() {
