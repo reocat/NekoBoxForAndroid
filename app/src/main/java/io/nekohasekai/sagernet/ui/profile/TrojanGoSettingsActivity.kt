@@ -33,6 +33,7 @@ class TrojanGoSettingsActivity : ProfileSettingsActivity<TrojanGoBean>() {
         } else {
             DataStore.serverEncryption = encryption
         }
+        DataStore.utlsFingerprint = utlsFingerprint
     }
 
     override fun TrojanGoBean.serialize() {
@@ -53,6 +54,7 @@ class TrojanGoSettingsActivity : ProfileSettingsActivity<TrojanGoBean>() {
                 security
             }
         }
+        utlsFingerprint = DataStore.utlsFingerprint
     }
 
     lateinit var network: SimpleMenuPreference
