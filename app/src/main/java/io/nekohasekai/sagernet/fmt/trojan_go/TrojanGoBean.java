@@ -89,6 +89,8 @@ public class TrojanGoBean extends AbstractBean {
 
     public Boolean allowInsecure;
 
+    public String utlsFingerprint;
+
     @Override
     public void initializeDefaultValues() {
         super.initializeDefaultValues();
@@ -101,11 +103,12 @@ public class TrojanGoBean extends AbstractBean {
         if (JavaUtil.isNullOrBlank(encryption)) encryption = "none";
         if (plugin == null) plugin = "";
         if (allowInsecure == null) allowInsecure = false;
+        if (utlsFingerprint == null) utlsFingerprint = "";
     }
 
     @Override
     public void serialize(ByteBufferOutput output) {
-        output.writeInt(1);
+        output.writeInt(2);
         super.serialize(output);
         output.writeString(password);
         output.writeString(sni);
@@ -121,6 +124,7 @@ public class TrojanGoBean extends AbstractBean {
         output.writeString(encryption);
         output.writeString(plugin);
         output.writeBoolean(allowInsecure);
+        output.writeString(utlsFingerprint);
     }
 
     @Override
@@ -144,6 +148,9 @@ public class TrojanGoBean extends AbstractBean {
         if (version >= 1) {
             allowInsecure = input.readBoolean();
         }
+        if (version >= 2) {
+            utlsFingerprint = input.readString();
+        }
     }
 
     @Override
@@ -153,6 +160,7 @@ public class TrojanGoBean extends AbstractBean {
         if (allowInsecure) {
             bean.allowInsecure = true;
         }
+        bean.utlsFingerprint = utlsFingerprint;
     }
 
     @NotNull
