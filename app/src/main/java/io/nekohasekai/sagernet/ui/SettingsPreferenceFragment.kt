@@ -79,7 +79,6 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
         val portLocalDns = findPreference<EditTextPreference>(Key.LOCAL_DNS_PORT)!!
         val showDirectSpeed = findPreference<SwitchPreference>(Key.SHOW_DIRECT_SPEED)!!
         val ipv6Mode = findPreference<Preference>(Key.IPV6_MODE)!!
-//        val domainStrategy = findPreference<Preference>(Key.DOMAIN_STRATEGY)!!
         val trafficSniffing = findPreference<Preference>(Key.TRAFFIC_SNIFFING)!!
 
         val muxConcurrency = findPreference<EditTextPreference>(Key.MUX_CONCURRENCY)!!
@@ -185,6 +184,11 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
             true
         }
 
+        serviceMode.setOnPreferenceChangeListener { _, _ ->
+            if (DataStore.serviceState.started) SagerNet.stopService()
+            true
+        }
+
         val tunImplementation = findPreference<SimpleMenuPreference>(Key.TUN_IMPLEMENTATION)!!
         val resolveDestination = findPreference<SwitchPreference>(Key.RESOLVE_DESTINATION)!!
         val acquireWakeLock = findPreference<SwitchPreference>(Key.ACQUIRE_WAKE_LOCK)!!
@@ -195,11 +199,9 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
             true
         }
 
-        serviceMode.onPreferenceChangeListener = reloadListener
         mixedPort.onPreferenceChangeListener = reloadListener
         appendHttpProxy.onPreferenceChangeListener = reloadListener
         showDirectSpeed.onPreferenceChangeListener = reloadListener
-//        domainStrategy.onPreferenceChangeListener = reloadListener
         trafficSniffing.onPreferenceChangeListener = reloadListener
         muxConcurrency.onPreferenceChangeListener = reloadListener
         tcpKeepAliveInterval.onPreferenceChangeListener = reloadListener

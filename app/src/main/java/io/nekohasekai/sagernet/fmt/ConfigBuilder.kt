@@ -159,7 +159,8 @@ fun buildConfig(
         .mapNotNull { dns -> dns.trim().takeIf { it.isNotBlank() && !it.startsWith("#") } }
     val enableDnsRouting = DataStore.enableDnsRouting
     val useFakeDns = DataStore.enableFakeDns && !forTest && DataStore.ipv6Mode != IPv6Mode.ONLY
-    val needSniff = DataStore.trafficSniffing
+    val needSniff = DataStore.trafficSniffing > 0
+    val needSniffOverride = DataStore.trafficSniffing == 2
     val externalIndexMap = ArrayList<IndexEntity>()
     val requireTransproxy = if (forTest) false else DataStore.requireTransproxy
     val ipv6Mode = if (forTest) IPv6Mode.ENABLE else DataStore.ipv6Mode
@@ -225,9 +226,10 @@ fun buildConfig(
                 type = "tun"
                 tag = "tun-in"
                 stack = if (DataStore.tunImplementation == 1) "system" else "gvisor"
-                sniff = needSniff
                 endpoint_independent_nat = true
                 domain_strategy = genDomainStrategy(false)
+                sniff = needSniff
+                sniff_override_destination = needSniffOverride
                 when (ipv6Mode) {
                     IPv6Mode.DISABLE -> {
                         inet4_address = listOf(VpnService.PRIVATE_VLAN4_CLIENT + "/28")
@@ -249,16 +251,8 @@ fun buildConfig(
                 listen = bind
                 listen_port = DataStore.mixedPort
                 domain_strategy = genDomainStrategy(false)
-                if (needSniff) {
-                    sniff = true
-//                destOverride = when {
-//                    useFakeDns && !trafficSniffing -> listOf("fakedns")
-//                    useFakeDns -> listOf("fakedns", "http", "tls", "quic")
-//                    else -> listOf("http", "tls", "quic")
-//                }
-//                metadataOnly = useFakeDns && !trafficSniffing
-//                routeOnly = true
-                }
+                sniff = needSniff
+                sniff_override_destination = needSniffOverride
             })
         }
 
@@ -269,8 +263,9 @@ fun buildConfig(
                     tag = TAG_TRANS
                     listen = bind
                     listen_port = DataStore.transproxyPort
-                    sniff = needSniff
                     domain_strategy = genDomainStrategy(false)
+                    sniff = needSniff
+                    sniff_override_destination = needSniffOverride
                 })
             } else {
                 inbounds.add(Inbound_RedirectOptions().apply {
@@ -278,8 +273,9 @@ fun buildConfig(
                     tag = TAG_TRANS
                     listen = bind
                     listen_port = DataStore.transproxyPort
-                    sniff = needSniff
                     domain_strategy = genDomainStrategy(false)
+                    sniff = needSniff
+                    sniff_override_destination = needSniffOverride
                 })
             }
         }
@@ -372,8 +368,7 @@ fun buildConfig(
                     globalOutbounds[proxyEntity.id] = tagOut
                 }
 
-                // Chain outbound
-                if (proxyEntity.needExternal()) {
+                if (proxyEntity.needExternal()) { // externel outbound
                     val localPort = mkPort()
                     externalChainMap[localPort] = proxyEntity
                     currentOutbound = Outbound_SocksOptions().apply {
@@ -381,9 +376,7 @@ fun buildConfig(
                         server = LOCALHOST
                         server_port = localPort
                     }.asMap()
-                } else {
-                    // internal outbound
-
+                } else { // internal outbound
                     currentOutbound = when (bean) {
                         is ConfigBean ->
                             gson.fromJson(bean.config, currentOutbound.javaClass)
@@ -429,6 +422,18 @@ fun buildConfig(
                                 }
                             }
                         }
+                    }
+                }
+
+                // internal & external
+                currentOutbound.apply {
+                    // udp over tcp
+                    try {
+                        val sUoT = bean.javaClass.getField("sUoT").get(bean)
+                        if (sUoT is Boolean && sUoT == true) {
+                            currentOutbound["udp_over_tcp"] = true
+                        }
+                    } catch (_: Exception) {
                     }
 
                     // custom JSON merge

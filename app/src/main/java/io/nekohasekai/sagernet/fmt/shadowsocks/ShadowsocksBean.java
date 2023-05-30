@@ -56,6 +56,13 @@ public class ShadowsocksBean extends AbstractBean {
         }
     }
 
+    @Override
+    public void applyFeatureSettings(AbstractBean other) {
+        if (!(other instanceof ShadowsocksBean)) return;
+        ShadowsocksBean bean = ((ShadowsocksBean) other);
+        bean.sUoT = sUoT;
+    }
+
     @NotNull
     @Override
     public ShadowsocksBean clone() {

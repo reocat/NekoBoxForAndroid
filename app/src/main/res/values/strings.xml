@@ -516,6 +516,8 @@ Anyone can write advanced plugins, which can control NekoBox. please download an
     <string name="tls_camouflage_settings">TLS Camouflage Settings</string>
     <string name="test_concurrency">Test concurrency</string>
     <string name="mux_type">Mux protocol</string>
+    <string name="sniff_routing">Sniff result for routing</string>
+    <string name="sniff_override">Sniff result for destination</string>
 
     <string name="reduced_iv_head_entropy">This is GFWReport\'s proposal for a countermeasure for the random stream like protocol blocking behaviour observed on GFW.
 \n\nThis option remap the first 6 bytes of IV to printable characters, it\'s possible for anyone on the privileged network path to identify the protocol when enabled.</string>
