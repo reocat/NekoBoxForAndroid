@@ -458,8 +458,8 @@ fun buildConfig(
                         }
                         if (Plugins.isUsingMatsuriExe(pluginId)) {
                             needExternal = false
-                        } else if (Plugins.getPlugin(pluginId) != null) {
-                            throw Exception("You are using an unsupported $pluginId, please download the correct plugin.")
+//                        } else if (Plugins.getPlugin(pluginId) != null) {
+//                            throw Exception("You are using an unsupported $pluginId, please download the correct plugin.")
                         }
                     }
                     if (needExternal) {
