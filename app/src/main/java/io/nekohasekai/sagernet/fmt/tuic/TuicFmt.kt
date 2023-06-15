@@ -37,8 +37,13 @@ fun TuicBean.buildTuicConfigV5(port: Int, cacheFile: (() -> File)?): JSONObject 
                 } else {
                     throw Exception("TUIC must use IP address when you need spoof SNI.")
                 }
+            } else if (!serverAddress.isIpAddress()) {
+                put("server", "$serverAddress:$finalPort")
+                if (finalAddress.isIpAddress()) {
+                    put("ip", finalAddress)
+                }
             } else {
-                put("server", serverAddress.wrapIPV6Host() + ":" + finalPort)
+                put("server", finalAddress.wrapIPV6Host() + ":" + finalPort)
             }
 
             put("uuid", uuid)
@@ -76,9 +81,15 @@ fun TuicBean.buildTuicConfigV4(port: Int, cacheFile: (() -> File)?): JSONObject 
                 } else {
                     throw Exception("TUIC must use IP address when you need spoof SNI.")
                 }
+            } else if (!serverAddress.isIpAddress()) {
+                put("server", serverAddress)
+                if (finalAddress.isIpAddress()) {
+                    put("ip", finalAddress)
+                }
             } else {
                 put("server", finalAddress)
             }
+
             put("port", finalPort)
             put("token", token)
 
