@@ -23,6 +23,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import libcore.Libcore
 import moe.matsuri.nb4a.Protocols
+import moe.matsuri.nb4a.utils.LibcoreUtil
 import moe.matsuri.nb4a.utils.Util
 import java.net.UnknownHostException
 
@@ -52,7 +53,7 @@ class BaseService {
                 Action.RELOAD -> service.reload()
                 // Action.SWITCH_WAKE_LOCK -> runOnDefaultDispatcher { service.switchWakeLock() }
                 Action.RESET_UPSTREAM_CONNECTIONS -> runOnDefaultDispatcher {
-                    Libcore.resetAllConnections(true)
+                    LibcoreUtil.resetAllConnections(true)
                     runOnMainDispatcher {
                         Util.collapseStatusBar(ctx)
                         Toast.makeText(ctx, "Reset upstream connections done", Toast.LENGTH_SHORT)
@@ -266,7 +267,7 @@ class BaseService {
                     }
                     if (oldName != null && upstreamInterfaceName != null && oldName != upstreamInterfaceName) {
                         Logs.d("Network changed: $oldName -> $upstreamInterfaceName")
-                        Libcore.resetAllConnections(true)
+                        LibcoreUtil.resetAllConnections(true)
                     }
                 }
             }
@@ -343,12 +344,6 @@ class BaseService {
 
                     startProcesses()
                     data.changeState(State.Connected)
-
-                    for ((type, routeName) in proxy.config.alerts) {
-                        data.binder.broadcast {
-                            it.routeAlert(type, routeName)
-                        }
-                    }
 
                     lateInit()
                 } catch (_: CancellationException) { // if the job was cancelled, it is canceller's responsibility to call stopRunner

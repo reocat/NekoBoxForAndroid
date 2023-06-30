@@ -30,20 +30,24 @@ fun TuicBean.buildTuicConfig(port: Int, cacheFile: (() -> File)?): String {
 fun TuicBean.buildTuicConfigV5(port: Int, cacheFile: (() -> File)?): JSONObject {
     return JSONObject().apply {
         put("relay", JSONObject().apply {
-            if (sni.isNotBlank() && !disableSNI) {
+            var disableSNI2 = disableSNI
+
+            if (sni.isNotBlank()) { // domain + SNI
                 put("server", "$sni:$finalPort")
                 if (finalAddress.isIpAddress()) {
                     put("ip", finalAddress)
                 } else {
                     throw Exception("TUIC must use IP address when you need spoof SNI.")
                 }
-            } else if (!serverAddress.isIpAddress()) {
+            } else if (!serverAddress.isIpAddress()) { // domain
                 put("server", "$serverAddress:$finalPort")
                 if (finalAddress.isIpAddress()) {
                     put("ip", finalAddress)
                 }
-            } else {
-                put("server", finalAddress.wrapIPV6Host() + ":" + finalPort)
+            } else { // prue IP server
+                put("server", "example.com:$finalPort")
+                put("ip", finalAddress)
+                disableSNI2 = true
             }
 
             put("uuid", uuid)
@@ -60,7 +64,7 @@ fun TuicBean.buildTuicConfigV5(port: Int, cacheFile: (() -> File)?): JSONObject 
                 put("alpn", JSONArray(alpn.split("\n")))
             }
             put("congestion_control", congestionController)
-            put("disable_sni", disableSNI)
+            put("disable_sni", disableSNI2)
             put("zero_rtt_handshake", reduceRTT)
             if (allowInsecure) put("allow_insecure", true)
         })
@@ -74,20 +78,24 @@ fun TuicBean.buildTuicConfigV5(port: Int, cacheFile: (() -> File)?): JSONObject 
 fun TuicBean.buildTuicConfigV4(port: Int, cacheFile: (() -> File)?): JSONObject {
     return JSONObject().apply {
         put("relay", JSONObject().apply {
-            if (sni.isNotBlank() && !disableSNI) {
-                put("server", sni)
+            var disableSNI2 = disableSNI
+
+            if (sni.isNotBlank()) { // domain + SNI
+                put("server", "$sni:$finalPort")
                 if (finalAddress.isIpAddress()) {
                     put("ip", finalAddress)
                 } else {
                     throw Exception("TUIC must use IP address when you need spoof SNI.")
                 }
-            } else if (!serverAddress.isIpAddress()) {
-                put("server", serverAddress)
+            } else if (!serverAddress.isIpAddress()) { // domain
+                put("server", "$serverAddress:$finalPort")
                 if (finalAddress.isIpAddress()) {
                     put("ip", finalAddress)
                 }
-            } else {
-                put("server", finalAddress)
+            } else { // prue IP server
+                put("server", "example.com:$finalPort")
+                put("ip", finalAddress)
+                disableSNI2 = true
             }
 
             put("port", finalPort)
@@ -104,7 +112,7 @@ fun TuicBean.buildTuicConfigV4(port: Int, cacheFile: (() -> File)?): JSONObject 
                 put("alpn", JSONArray(alpn.split("\n")))
             }
             put("congestion_controller", congestionController)
-            put("disable_sni", disableSNI)
+            put("disable_sni", disableSNI2)
             put("reduce_rtt", reduceRTT)
             put("max_udp_relay_packet_size", mtu)
             if (fastConnect) put("fast_connect", true)
