@@ -30,6 +30,7 @@ import io.nekohasekai.sagernet.fmt.wireguard.buildSingBoxOutboundWireguardBean
 import io.nekohasekai.sagernet.ktx.isIpAddress
 import io.nekohasekai.sagernet.ktx.mkPort
 import io.nekohasekai.sagernet.utils.PackageCache
+import moe.matsuri.nb4a.Protocols
 import moe.matsuri.nb4a.SingBoxOptions.*
 import moe.matsuri.nb4a.applyDNSNetworkSettings
 import moe.matsuri.nb4a.checkEmpty
@@ -54,7 +55,7 @@ const val TAG_DNS_IN = "dns-in"
 const val TAG_DNS_OUT = "dns-out"
 
 const val LOCALHOST = "127.0.0.1"
-const val LOCAL_DNS_SERVER = "underlying://0.0.0.0"
+const val LOCAL_DNS_SERVER = "local"
 
 class ConfigBuildResult(
     var config: String,
@@ -400,6 +401,7 @@ fun buildConfig(
                             muxApplied = true
                             currentOutbound["multiplex"] = MultiplexOptions().apply {
                                 enabled = true
+                                padding = Protocols.shouldEnableMux("padding")
                                 max_streams = DataStore.muxConcurrency
                                 protocol = when (DataStore.muxType) {
                                     1 -> "smux"
@@ -422,24 +424,22 @@ fun buildConfig(
                     } catch (_: Exception) {
                     }
 
+                    // domain_strategy
+                    pastEntity?.requireBean()?.apply {
+                        // don't loopback
+                        if (currentDomainStrategy != "" && !serverAddress.isIpAddress()) {
+                            domainListDNSDirectForce.add("full:$serverAddress")
+                        }
+                    }
+                    currentOutbound["domain_strategy"] = if (forTest) "" else currentDomainStrategy
+
                     // custom JSON merge
                     if (bean.customOutboundJson.isNotBlank()) {
                         Util.mergeJSON(bean.customOutboundJson, currentOutbound)
                     }
                 }
 
-                pastEntity?.requireBean()?.apply {
-                    // don't loopback
-                    if (currentDomainStrategy != "" && !serverAddress.isIpAddress()) {
-                        domainListDNSDirectForce.add("full:$serverAddress")
-                    }
-                }
-                if (forTest) {
-                    currentDomainStrategy = ""
-                }
-
                 currentOutbound["tag"] = tagOut
-                currentOutbound["domain_strategy"] = currentDomainStrategy
 
                 // External proxy need a dokodemo-door inbound to forward the traffic
                 // For external proxy software, their traffic must goes to v2ray-core to use protected fd.

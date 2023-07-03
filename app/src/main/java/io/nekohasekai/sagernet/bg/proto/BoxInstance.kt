@@ -1,6 +1,5 @@
 package io.nekohasekai.sagernet.bg.proto
 
-import android.os.Build
 import android.os.SystemClock
 import io.nekohasekai.sagernet.SagerNet
 import io.nekohasekai.sagernet.bg.AbstractInstance
@@ -23,6 +22,7 @@ import io.nekohasekai.sagernet.plugin.PluginManager
 import kotlinx.coroutines.*
 import libcore.BoxInstance
 import libcore.Libcore
+import moe.matsuri.nb4a.net.LocalResolverImpl
 import moe.matsuri.nb4a.plugin.NekoPluginManager
 import moe.matsuri.nb4a.proxy.neko.NekoBean
 import moe.matsuri.nb4a.proxy.neko.NekoJSInterface
@@ -112,15 +112,14 @@ abstract class BoxInstance(
                 }
             }
         }
+        Libcore.registerLocalDNSTransport(LocalResolverImpl)
         loadConfig()
     }
 
     override fun launch() {
         // TODO move, this is not box
-        val context =
-            if (Build.VERSION.SDK_INT < 24 || SagerNet.user.isUserUnlocked) SagerNet.application else SagerNet.deviceStorage
-        val cache = File(context.cacheDir, "tmpcfg")
-        cache.mkdirs()
+        val cacheDir = File(SagerNet.application.cacheDir, "tmpcfg")
+        cacheDir.mkdirs()
 
         for ((chain) in config.externalIndex) {
             chain.entries.forEachIndexed { index, (port, profile) ->
@@ -135,7 +134,7 @@ abstract class BoxInstance(
 
                     bean is TrojanGoBean -> {
                         val configFile = File(
-                            cache, "trojan_go_" + SystemClock.elapsedRealtime() + ".json"
+                            cacheDir, "trojan_go_" + SystemClock.elapsedRealtime() + ".json"
                         )
                         configFile.parentFile?.mkdirs()
                         configFile.writeText(config)
@@ -150,7 +149,7 @@ abstract class BoxInstance(
 
                     bean is NaiveBean -> {
                         val configFile = File(
-                            cache, "naive_" + SystemClock.elapsedRealtime() + ".json"
+                            cacheDir, "naive_" + SystemClock.elapsedRealtime() + ".json"
                         )
 
                         configFile.parentFile?.mkdirs()
@@ -161,7 +160,7 @@ abstract class BoxInstance(
 
                         if (bean.certificates.isNotBlank()) {
                             val certFile = File(
-                                cache, "naive_" + SystemClock.elapsedRealtime() + ".crt"
+                                cacheDir, "naive_" + SystemClock.elapsedRealtime() + ".crt"
                             )
 
                             certFile.parentFile?.mkdirs()
@@ -180,7 +179,7 @@ abstract class BoxInstance(
 
                     bean is HysteriaBean -> {
                         val configFile = File(
-                            cache, "hysteria_" + SystemClock.elapsedRealtime() + ".json"
+                            cacheDir, "hysteria_" + SystemClock.elapsedRealtime() + ".json"
                         )
 
                         configFile.parentFile?.mkdirs()
@@ -213,7 +212,7 @@ abstract class BoxInstance(
                             any as JSONObject
 
                             val name = any.getString("name")
-                            val configFile = File(cache, name)
+                            val configFile = File(cacheDir, name)
                             configFile.parentFile?.mkdirs()
                             val content = any.getString("content")
                             configFile.writeText(content)
@@ -243,10 +242,8 @@ abstract class BoxInstance(
                     }
 
                     bean is TuicBean -> {
-                        val configFile = File(
-                            context.noBackupFilesDir,
-                            "tuic_" + SystemClock.elapsedRealtime() + ".json"
-                        )
+                        val configFile =
+                            File(cacheDir, "tuic_" + SystemClock.elapsedRealtime() + ".json")
 
                         configFile.parentFile?.mkdirs()
                         configFile.writeText(config)
@@ -282,6 +279,8 @@ abstract class BoxInstance(
         if (::box.isInitialized) {
             box.close()
         }
+
+        Libcore.registerLocalDNSTransport(null)
     }
 
 }
