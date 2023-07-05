@@ -34,6 +34,8 @@ class TrojanGoSettingsActivity : ProfileSettingsActivity<TrojanGoBean>() {
             DataStore.serverEncryption = encryption
         }
         DataStore.utlsFingerprint = utlsFingerprint
+        DataStore.profileCacheStore.putString("realityPubKey", realityPubKey)
+        DataStore.profileCacheStore.putString("realityShortId", realityShortId)
     }
 
     override fun TrojanGoBean.serialize() {
@@ -55,6 +57,8 @@ class TrojanGoSettingsActivity : ProfileSettingsActivity<TrojanGoBean>() {
             }
         }
         utlsFingerprint = DataStore.utlsFingerprint
+        realityPubKey = DataStore.profileCacheStore.getString("realityPubKey")
+        realityShortId = DataStore.profileCacheStore.getString("realityShortId")
     }
 
     lateinit var network: SimpleMenuPreference
