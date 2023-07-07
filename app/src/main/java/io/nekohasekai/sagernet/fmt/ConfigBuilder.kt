@@ -50,6 +50,7 @@ const val TAG_PROXY = "proxy"
 const val TAG_DIRECT = "direct"
 const val TAG_BYPASS = "bypass"
 const val TAG_BLOCK = "block"
+const val TAG_FRAGMENT = "fragment"
 
 const val TAG_DNS_IN = "dns-in"
 const val TAG_DNS_OUT = "dns-out"
@@ -276,6 +277,7 @@ fun buildConfig(
         }
 
         // returns outbound tag
+        @Suppress("UNCHECKED_CAST")
         fun buildChain(
             chainId: Long, entity: ProxyEntity
         ): String {
@@ -410,6 +412,13 @@ fun buildConfig(
                                 }
                             }
                         }
+
+                        if (needGlobal && DataStore.enableTLSFragment) {
+                            val tlsOptions = currentOutbound["tls"] as? Map<String, Any>
+                            if (tlsOptions?.get("enabled") == true) {
+                                currentOutbound["detour"] = TAG_FRAGMENT
+                            }
+                        }
                     }
                 }
 
@@ -478,6 +487,14 @@ fun buildConfig(
 
                             // no chain rule and not outbound, so need to set to direct
                             if (index == profileList.lastIndex) {
+                                if (DataStore.enableTLSFragment) {
+                                    route.rules.add(Rule_DefaultOptions().apply {
+                                        network = listOf("tcp")
+                                        inbound = listOf(tag)
+                                        outbound = TAG_FRAGMENT
+                                    })
+                                }
+
                                 route.rules.add(Rule_DefaultOptions().apply {
                                     inbound = listOf(tag)
                                     outbound = TAG_DIRECT
@@ -630,6 +647,18 @@ fun buildConfig(
             tag = freedom
             type = "direct"
         }.asMap())
+
+        if (DataStore.enableTLSFragment) {
+            var fragmentOutbound = Outbound().apply {
+                tag = TAG_FRAGMENT
+                type = "direct"
+            }.asMap()
+            fragmentOutbound["fragment"] = Fragment().apply {
+                length = "500"
+                interval = "0-1"
+            }
+            outbounds.add(fragmentOutbound)
+        }
 
         outbounds.add(Outbound().apply {
             tag = TAG_BLOCK

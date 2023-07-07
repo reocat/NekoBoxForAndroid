@@ -157,6 +157,7 @@ object Key {
     const val ENABLE_CLASH_API = "enableClashAPI"
 
     const val UTLS_FINGERPRINT = "utlsFingerprint"
+    const val ENABLE_TLS_FRAGMENT = "enableTLSFragment"
 }
 
 object TunImplementation {
