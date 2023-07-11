@@ -32,7 +32,7 @@ import io.nekohasekai.sagernet.ktx.mkPort
 import io.nekohasekai.sagernet.utils.PackageCache
 import moe.matsuri.nb4a.Protocols
 import moe.matsuri.nb4a.SingBoxOptions.*
-import moe.matsuri.nb4a.applyDNSNetworkSettings
+import moe.matsuri.nb4a.SingBoxOptionsUtil
 import moe.matsuri.nb4a.checkEmpty
 import moe.matsuri.nb4a.makeSingBoxRule
 import moe.matsuri.nb4a.plugin.Plugins
@@ -147,7 +147,7 @@ fun buildConfig(
     val bind = if (!forTest && DataStore.allowAccess) "0.0.0.0" else LOCALHOST
     val remoteDns = DataStore.remoteDns.split("\n")
         .mapNotNull { dns -> dns.trim().takeIf { it.isNotBlank() && !it.startsWith("#") } }
-    var directDNS = DataStore.directDns.split("\n")
+    val directDNS = DataStore.directDns.split("\n")
         .mapNotNull { dns -> dns.trim().takeIf { it.isNotBlank() && !it.startsWith("#") } }
     val enableDnsRouting = DataStore.enableDnsRouting
     val useFakeDns = DataStore.enableFakeDns && !forTest && DataStore.ipv6Mode != IPv6Mode.ONLY
@@ -197,15 +197,18 @@ fun buildConfig(
             servers = mutableListOf()
             rules = mutableListOf()
             independent_cache = true
+        }
 
-            when (ipv6Mode) {
-                IPv6Mode.DISABLE -> {
-                    strategy = "ipv4_only"
-                }
-
-                IPv6Mode.ONLY -> {
-                    strategy = "ipv6_only"
-                }
+        fun autoDnsDomainStrategy(s: String): String? {
+            if (s.isNotEmpty()) {
+                return s
+            }
+            return when (ipv6Mode) {
+                IPv6Mode.DISABLE -> "ipv4_only"
+                IPv6Mode.ENABLE -> "prefer_ipv4"
+                IPv6Mode.PREFER -> "prefer_ipv6"
+                IPv6Mode.ONLY -> "ipv6_only"
+                else -> null
             }
         }
 
@@ -300,7 +303,7 @@ fun buildConfig(
             val chainTag = "c-$chainId"
             var muxApplied = false
 
-            var currentDomainStrategy = genDomainStrategy(DataStore.resolveServer)
+            val defaultServerDomainStrategy = SingBoxOptionsUtil.domainStrategy("server")
 
             profileList.forEachIndexed { index, proxyEntity ->
                 val bean = proxyEntity.requireBean()
@@ -436,11 +439,12 @@ fun buildConfig(
                     // domain_strategy
                     pastEntity?.requireBean()?.apply {
                         // don't loopback
-                        if (currentDomainStrategy != "" && !serverAddress.isIpAddress()) {
+                        if (defaultServerDomainStrategy != "" && !serverAddress.isIpAddress()) {
                             domainListDNSDirectForce.add("full:$serverAddress")
                         }
                     }
-                    currentOutbound["domain_strategy"] = if (forTest) "" else currentDomainStrategy
+                    currentOutbound["domain_strategy"] =
+                        if (forTest) "" else defaultServerDomainStrategy
 
                     // custom JSON merge
                     if (bean.customOutboundJson.isNotBlank()) {
@@ -465,7 +469,7 @@ fun buildConfig(
                         }
                         if (Plugins.isUsingMatsuriExe(pluginId)) {
                             needExternal = false
-//                        } else if (Plugins.getPlugin(pluginId) != null) {
+//                        } else if (Plugins.getPluginExternal(pluginId) != null) {
 //                            throw Exception("You are using an unsupported $pluginId, please download the correct plugin.")
                         }
                     }
@@ -595,30 +599,33 @@ fun buildConfig(
                     protocol = rule.protocol.split("\n")
                 }
 
-                // also bypass lookup
-                // cannot use other outbound profile to lookup...
-                val dnsRuleObj = DNSRule_DefaultOptions().apply {
-                    if (uidList.isNotEmpty()) user_id = uidList
-                    domainList?.let { makeSingBoxRule(it) }
+                fun makeDnsRuleObj(): DNSRule_DefaultOptions {
+                    return DNSRule_DefaultOptions().apply {
+                        if (uidList.isNotEmpty()) user_id = uidList
+                        domainList?.let { makeSingBoxRule(it) }
+                    }
                 }
+
                 when (rule.outbound) {
                     -1L -> {
-                        userDNSRuleList += dnsRuleObj.apply { server = "dns-direct" }
+                        userDNSRuleList += makeDnsRuleObj().apply { server = "dns-direct" }
                     }
 
                     0L -> {
-                        if (useFakeDns) userDNSRuleList += dnsRuleObj.apply {
+                        if (useFakeDns) userDNSRuleList += makeDnsRuleObj().apply {
                             server = "dns-fake"
                             inbound = listOf("tun-in")
                         }
-                        userDNSRuleList += dnsRuleObj.apply {
+                        userDNSRuleList += makeDnsRuleObj().apply {
                             server = "dns-remote"
-                            inbound = null
                         }
                     }
 
                     -2L -> {
-                        userDNSRuleList += dnsRuleObj.apply { server = "dns-block" }
+                        userDNSRuleList += makeDnsRuleObj().apply {
+                            server = "dns-block"
+                            disable_cache = true
+                        }
                     }
                 }
 
@@ -681,11 +688,6 @@ fun buildConfig(
             }.asMap())
         }
 
-        if (DataStore.directDnsUseSystem) {
-            // finally able to use "localDns" now...
-            directDNS = listOf(LOCAL_DNS_SERVER)
-        }
-
         // Bypass Lookup for the first profile
         bypassDNSBeans.forEach {
             var serverAddr = it.serverAddress
@@ -723,7 +725,7 @@ fun buildConfig(
                 address = it ?: throw Exception("No remote DNS, check your settings!")
                 tag = "dns-remote"
                 address_resolver = "dns-direct"
-                applyDNSNetworkSettings(false)
+                strategy = autoDnsDomainStrategy(SingBoxOptionsUtil.domainStrategy(tag))
             })
         }
 
@@ -734,7 +736,7 @@ fun buildConfig(
                 tag = "dns-direct"
                 detour = TAG_DIRECT
                 address_resolver = "dns-local"
-                applyDNSNetworkSettings(true)
+                strategy = autoDnsDomainStrategy(SingBoxOptionsUtil.domainStrategy(tag))
             })
         }
         dns.servers.add(DNSServerOptions().apply {
