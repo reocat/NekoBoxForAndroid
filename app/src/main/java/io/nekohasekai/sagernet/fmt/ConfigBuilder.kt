@@ -482,6 +482,7 @@ fun buildConfig(
                             type = "direct"
                             listen = LOCALHOST
                             listen_port = mappingPort
+                            domain_strategy = genDomainStrategy(DataStore.resolveDestination)
                             tag = "$chainTag-mapping-${proxyEntity.id}"
 
                             override_address = bean.serverAddress
