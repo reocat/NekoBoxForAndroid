@@ -614,6 +614,10 @@ fun buildConfig(
 
                 when (rule.outbound) {
                     -1L -> {
+                        if (useFakeDns) userDNSRuleList += makeDnsRuleObj().apply {
+                            server = "dns-fake"
+                            inbound = listOf("tun-in")
+                        }
                         userDNSRuleList += makeDnsRuleObj().apply { server = "dns-direct" }
                     }
 
@@ -802,7 +806,6 @@ fun buildConfig(
                 dns.servers.add(DNSServerOptions().apply {
                     address = "fakeip"
                     tag = "dns-fake"
-                    strategy = "ipv4_only"
                 })
                 dns.rules.add(DNSRule_DefaultOptions().apply {
                     inbound = listOf("tun-in")
