@@ -306,12 +306,12 @@ object RawUpdater : GroupUpdater() {
 
                                     "flow" -> if (isVLESS) bean.encryption = opt.value as String
 
-                                    "xudp" -> if (isVLESS) {
-                                        if (opt.value.toString() == "false") {
-                                            bean.packetEncoding = 0
-                                        } else {
-                                            bean.packetEncoding = 2
-                                        }
+                                    "packet-addr" -> if (opt.value.toString() == "true") {
+                                        bean.packetEncoding = 1
+                                    }
+
+                                    "xudp" -> if (opt.value.toString() == "true") {
+                                        bean.packetEncoding = 2
                                     }
 
                                     "network" -> {
@@ -511,8 +511,7 @@ object RawUpdater : GroupUpdater() {
                                 }
                             }
                             if (hopPorts.isNotBlank()) {
-                                bean.serverAddress =
-                                    bean.serverAddress.wrapIPV6Host() + ":" + hopPorts
+                                bean.serverPorts = hopPorts
                             }
                             proxies.add(bean)
                         }
