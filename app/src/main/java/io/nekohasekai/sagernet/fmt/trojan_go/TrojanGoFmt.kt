@@ -20,6 +20,9 @@ fun parseTrojanGo(server: String): TrojanGoBean {
         link.queryParameter("sni")?.let {
             sni = it
         }
+        link.queryParameter("alpn")?.let {
+            alpn = it
+        }
         link.queryParameter("fp")?.let {
             utlsFingerprint = it
         }
@@ -61,6 +64,9 @@ fun TrojanGoBean.toUri(): String {
     val builder = linkBuilder().username(password).host(serverAddress).port(serverPort)
     if (sni.isNotBlank()) {
         builder.addQueryParameter("sni", sni)
+    }
+    if (alpn.isNotBlank()) {
+        builder.addQueryParameter("alpn", alpn)
     }
     if (utlsFingerprint.isNotBlank()) {
         builder.addQueryParameter("fp", utlsFingerprint)
@@ -134,6 +140,9 @@ fun TrojanGoBean.buildTrojanGoConfig(port: Int): String {
 
         put("ssl", JSONObject().apply {
             if (sni.isNotBlank()) put("sni", sni)
+            if (alpn.isNotBlank()) put("alpn", JSONArray().apply {
+                alpn.split('\n').filter { it.isNotBlank() }.forEach { put(it) }
+            })
             if (allowInsecure) put("verify", false)
             if (utlsFingerprint.isNotBlank()) put("fingerprint", utlsFingerprint)
             if (realityPubKey.isNotBlank()) put("reality", JSONObject().apply {
@@ -169,6 +178,9 @@ fun JSONObject.parseTrojanGo(): TrojanGoBean {
         }
         optJSONArray("ssl")?.apply {
             sni = optString("sni", sni)
+            optJSONArray("alpn")?.apply {
+                alpn = join("\n")
+            }
             utlsFingerprint = optString("fingerprint", utlsFingerprint)
             optJSONArray("reality")?.apply {
                 if (optBoolean("enabled", false)) {

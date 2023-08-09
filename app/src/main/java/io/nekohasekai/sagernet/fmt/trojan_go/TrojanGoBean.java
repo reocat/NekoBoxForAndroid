@@ -101,6 +101,8 @@ public class TrojanGoBean extends AbstractBean {
 
     // --------------------------------------- //
 
+    public String alpn;
+
     @Override
     public void initializeDefaultValues() {
         super.initializeDefaultValues();
@@ -116,11 +118,12 @@ public class TrojanGoBean extends AbstractBean {
         if (utlsFingerprint == null) utlsFingerprint = "";
         if (realityPubKey == null) realityPubKey = "";
         if (realityShortId == null) realityShortId = "";
+        if (alpn == null) alpn = "";
     }
 
     @Override
     public void serialize(ByteBufferOutput output) {
-        output.writeInt(3);
+        output.writeInt(4);
         super.serialize(output);
         output.writeString(password);
         output.writeString(sni);
@@ -139,6 +142,7 @@ public class TrojanGoBean extends AbstractBean {
         output.writeString(utlsFingerprint);
         output.writeString(realityPubKey);
         output.writeString(realityShortId);
+        output.writeString(alpn);
     }
 
     @Override
@@ -168,6 +172,9 @@ public class TrojanGoBean extends AbstractBean {
         if (version >= 3) {
             realityPubKey = input.readString();
             realityShortId = input.readString();
+        }
+        if (version >= 4) {
+            alpn = input.readString();
         }
     }
 

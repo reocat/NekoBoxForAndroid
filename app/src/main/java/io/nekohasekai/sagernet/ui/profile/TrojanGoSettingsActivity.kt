@@ -33,6 +33,7 @@ class TrojanGoSettingsActivity : ProfileSettingsActivity<TrojanGoBean>() {
         } else {
             DataStore.serverEncryption = encryption
         }
+        DataStore.serverALPN = alpn
         DataStore.utlsFingerprint = utlsFingerprint
         DataStore.profileCacheStore.putString("realityPubKey", realityPubKey)
         DataStore.profileCacheStore.putString("realityShortId", realityShortId)
@@ -56,6 +57,7 @@ class TrojanGoSettingsActivity : ProfileSettingsActivity<TrojanGoBean>() {
                 security
             }
         }
+        alpn = DataStore.serverALPN
         utlsFingerprint = DataStore.utlsFingerprint
         realityPubKey = DataStore.profileCacheStore.getString("realityPubKey")
         realityShortId = DataStore.profileCacheStore.getString("realityShortId")
