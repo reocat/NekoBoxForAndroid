@@ -5,6 +5,7 @@ import io.nekohasekai.sagernet.database.DataStore
 import io.nekohasekai.sagernet.fmt.LOCALHOST
 import io.nekohasekai.sagernet.ktx.*
 import moe.matsuri.nb4a.Protocols
+import moe.matsuri.nb4a.utils.listByLineOrComma
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.json.JSONArray
 import org.json.JSONObject
@@ -141,7 +142,7 @@ fun TrojanGoBean.buildTrojanGoConfig(port: Int): String {
         put("ssl", JSONObject().apply {
             if (sni.isNotBlank()) put("sni", sni)
             if (alpn.isNotBlank()) put("alpn", JSONArray().apply {
-                alpn.split('\n').filter { it.isNotBlank() }.forEach { put(it) }
+                alpn.listByLineOrComma().filter { it.isNotBlank() }.forEach { put(it) }
             })
             if (allowInsecure) put("verify", false)
             if (utlsFingerprint.isNotBlank()) put("fingerprint", utlsFingerprint)
