@@ -1,8 +1,8 @@
 if [ ! -z $ENV_NB4A ]; then
-  export COMMIT_SING_BOX_EXTRA="e9294cd60a5ad5e1efec2fbbe35be03f057c2a63"
+  export COMMIT_SING_BOX_EXTRA="3c5d4ae9b771f216bc0eeabdf19d840c77e29858"
 fi
 
 if [ ! -z $ENV_SING_BOX_EXTRA ]; then
   source libs/get_source_env.sh
-  export COMMIT_SING_BOX="a711b2ca6359f1d8cf369d83f8a67bb00d7b1ac6"
+  export COMMIT_SING_BOX="451e15045a98b475100c53a8108ccc0772efaed0"
 fi
