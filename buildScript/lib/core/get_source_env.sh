@@ -4,5 +4,5 @@ fi
 
 if [ ! -z $ENV_SING_BOX_EXTRA ]; then
   source libs/get_source_env.sh
-  export COMMIT_SING_BOX="451e15045a98b475100c53a8108ccc0772efaed0"
+  export COMMIT_SING_BOX="009c0e9ee584373d8621cbeacde0a1b63a2c5879"
 fi
