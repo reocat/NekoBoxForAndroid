@@ -114,7 +114,9 @@ fun buildSingBoxOutboundShadowsocksBean(bean: ShadowsocksBean): SingBoxOptions.O
         server_port = bean.serverPort
         password = bean.password
         method = bean.method
-        reducedIvHeadEntropy = bean.reducedIvHeadEntropy
+        if (bean.reducedIvHeadEntropy == true) {
+            reduced_iv_head_entropy = true
+        }
         if (bean.plugin.isNotBlank()) {
             plugin = bean.plugin.substringBefore(";")
             plugin_opts = bean.plugin.substringAfter(";")
