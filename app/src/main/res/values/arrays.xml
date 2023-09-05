@@ -304,6 +304,18 @@
         <item>tls</item>
     </string-array>
 
+    <string-array name="trojan_go_transport_layer_encryption_entry">
+        <item>TLS</item>
+        <item>REALITY</item>
+        <item>JLS</item>
+    </string-array>
+
+    <string-array name="trojan_go_transport_layer_encryption_value">
+        <item>tls</item>
+        <item>reality</item>
+        <item>jls</item>
+    </string-array>
+
     <string-array name="notification_entry">
         <item>@string/disable</item>
         <item>500ms</item>

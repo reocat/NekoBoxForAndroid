@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.preference.EditTextPreference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreference
 import io.nekohasekai.sagernet.Key
 import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.database.DataStore
@@ -35,8 +36,11 @@ class TrojanGoSettingsActivity : ProfileSettingsActivity<TrojanGoBean>() {
         }
         DataStore.serverALPN = alpn
         DataStore.utlsFingerprint = utlsFingerprint
+        DataStore.profileCacheStore.putString("serverSecurity", serverSecurity)
         DataStore.profileCacheStore.putString("realityPubKey", realityPubKey)
         DataStore.profileCacheStore.putString("realityShortId", realityShortId)
+        DataStore.profileCacheStore.putString("jlsPassword", jlsPassword)
+        DataStore.profileCacheStore.putString("jlsRandom", jlsRandom)
     }
 
     override fun TrojanGoBean.serialize() {
@@ -59,8 +63,11 @@ class TrojanGoSettingsActivity : ProfileSettingsActivity<TrojanGoBean>() {
         }
         alpn = DataStore.serverALPN
         utlsFingerprint = DataStore.utlsFingerprint
+        serverSecurity = DataStore.profileCacheStore.getString("serverSecurity")
         realityPubKey = DataStore.profileCacheStore.getString("realityPubKey")
         realityShortId = DataStore.profileCacheStore.getString("realityShortId")
+        jlsPassword = DataStore.profileCacheStore.getString("jlsPassword")
+        jlsRandom = DataStore.profileCacheStore.getString("jlsRandom")
     }
 
     lateinit var network: SimpleMenuPreference
@@ -68,9 +75,16 @@ class TrojanGoSettingsActivity : ProfileSettingsActivity<TrojanGoBean>() {
     lateinit var wsCategory: PreferenceCategory
     lateinit var ssCategory: PreferenceCategory
     lateinit var method: SimpleMenuPreference
+    lateinit var security: SimpleMenuPreference
+    lateinit var inseure: SwitchPreference
+    lateinit var realityPubKey: EditTextPreference
+    lateinit var realityShortId: EditTextPreference
+    lateinit var jlsPassword: EditTextPreference
+    lateinit var jlsRandom: EditTextPreference
 
     val trojanGoMethods = app.resources.getStringArray(R.array.trojan_go_methods)
     val trojanGoNetworks = app.resources.getStringArray(R.array.trojan_go_networks_value)
+    val securities = app.resources.getStringArray(R.array.trojan_go_transport_layer_encryption_value)
 
     override fun PreferenceFragmentCompat.createPreferences(
         savedInstanceState: Bundle?,
@@ -86,6 +100,23 @@ class TrojanGoSettingsActivity : ProfileSettingsActivity<TrojanGoBean>() {
         findPreference<EditTextPreference>(Key.SERVER_PASSWORD1)!!.apply {
             summaryProvider = PasswordSummaryProvider
         }
+
+        security = findPreference("serverSecurity")!!
+        inseure = findPreference(Key.SERVER_ALLOW_INSECURE)!!
+        realityPubKey = findPreference("realityPubKey")!!
+        realityShortId = findPreference("realityShortId")!!
+        jlsPassword = findPreference("jlsPassword")!!
+        jlsRandom = findPreference("jlsRandom")!!
+
+        if (security.value !in securities) {
+            security.value = securities[0]
+        }
+        updateSecurity(security.value)
+        security.setOnPreferenceChangeListener { _, newValue ->
+            updateSecurity(newValue as String)
+            true
+        }
+
         wsCategory = findPreference(Key.SERVER_WS_CATEGORY)!!
         ssCategory = findPreference(Key.SERVER_SS_CATEGORY)!!
         method = findPreference(Key.SERVER_METHOD)!!
@@ -109,7 +140,7 @@ class TrojanGoSettingsActivity : ProfileSettingsActivity<TrojanGoBean>() {
         }
     }
 
-    fun updateNetwork(newNet: String) {
+    private fun updateNetwork(newNet: String) {
         when (newNet) {
             "ws" -> {
                 wsCategory.isVisible = true
@@ -120,7 +151,7 @@ class TrojanGoSettingsActivity : ProfileSettingsActivity<TrojanGoBean>() {
         }
     }
 
-    fun updateEncryption(encryption: String) {
+    private fun updateEncryption(encryption: String) {
         when (encryption) {
             "ss" -> {
                 ssCategory.isVisible = true
@@ -135,4 +166,29 @@ class TrojanGoSettingsActivity : ProfileSettingsActivity<TrojanGoBean>() {
         }
     }
 
+    private fun updateSecurity(security: String) {
+        when (security) {
+            "reality" -> {
+                inseure.isVisible = false
+                jlsPassword.isVisible = false
+                jlsRandom.isVisible = false
+                realityPubKey.isVisible = true
+                realityShortId.isVisible = true
+            }
+            "jls" -> {
+                inseure.isVisible = false
+                jlsPassword.isVisible = true
+                jlsRandom.isVisible = true
+                realityPubKey.isVisible = false
+                realityShortId.isVisible = false
+            }
+            else -> {
+                inseure.isVisible = true
+                jlsPassword.isVisible = false
+                jlsRandom.isVisible = false
+                realityPubKey.isVisible = false
+                realityShortId.isVisible = false
+            }
+        }
+    }
 }

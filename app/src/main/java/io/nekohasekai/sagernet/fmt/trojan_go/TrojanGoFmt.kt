@@ -18,11 +18,14 @@ fun parseTrojanGo(server: String): TrojanGoBean {
         serverAddress = link.host
         serverPort = link.port
         password = link.username
-        link.queryParameter("sni")?.let {
-            sni = it
+        link.queryParameter("security")?.let {
+            serverSecurity = it
         }
         link.queryParameter("alpn")?.let {
             alpn = it
+        }
+        link.queryParameter("sni")?.let {
+            sni = it
         }
         link.queryParameter("fp")?.let {
             utlsFingerprint = it
@@ -32,6 +35,12 @@ fun parseTrojanGo(server: String): TrojanGoBean {
         }
         link.queryParameter("sid")?.let {
             realityShortId = it
+        }
+        link.queryParameter("pwd")?.let {
+            jlsPassword = it
+        }
+        link.queryParameter("iv")?.let {
+            jlsRandom = it
         }
         link.queryParameter("type")?.let { lType ->
             type = lType
@@ -63,11 +72,14 @@ fun parseTrojanGo(server: String): TrojanGoBean {
 
 fun TrojanGoBean.toUri(): String {
     val builder = linkBuilder().username(password).host(serverAddress).port(serverPort)
-    if (sni.isNotBlank()) {
-        builder.addQueryParameter("sni", sni)
+    if (serverSecurity.isNotBlank()) {
+        builder.addQueryParameter("security", serverSecurity)
     }
     if (alpn.isNotBlank()) {
         builder.addQueryParameter("alpn", alpn)
+    }
+    if (sni.isNotBlank()) {
+        builder.addQueryParameter("sni", sni)
     }
     if (utlsFingerprint.isNotBlank()) {
         builder.addQueryParameter("fp", utlsFingerprint)
@@ -77,6 +89,12 @@ fun TrojanGoBean.toUri(): String {
     }
     if (realityShortId.isNotBlank()) {
         builder.addQueryParameter("sid", realityShortId)
+    }
+    if (jlsPassword.isNotBlank()) {
+        builder.addQueryParameter("pwd", jlsPassword)
+    }
+    if (jlsRandom.isNotBlank()) {
+        builder.addQueryParameter("iv", jlsRandom)
     }
     if (type.isNotBlank() && type != "original") {
         builder.addQueryParameter("type", type)
@@ -144,13 +162,22 @@ fun TrojanGoBean.buildTrojanGoConfig(port: Int): String {
             if (alpn.isNotBlank()) put("alpn", JSONArray().apply {
                 alpn.listByLineOrComma().filter { it.isNotBlank() }.forEach { put(it) }
             })
-            if (allowInsecure) put("verify", false)
-            if (utlsFingerprint.isNotBlank()) put("fingerprint", utlsFingerprint)
-            if (realityPubKey.isNotBlank()) put("reality", JSONObject().apply {
-                put("enabled", true)
-                put("public_key", realityPubKey)
-                put("short_id", realityShortId)
-            })
+            when (serverSecurity) {
+                "reality" -> {
+                    if (realityPubKey.isNotBlank() && realityShortId.isNotBlank()) put("reality", JSONObject().apply {
+                        put("enabled", true)
+                        put("public_key", realityPubKey)
+                        put("short_id", realityShortId)
+                    })
+                }
+                "jls" -> {
+                    if (jlsPassword.isNotBlank() && jlsRandom.isNotBlank()) put("jls", JSONObject().apply {
+                        put("enabled", true)
+                        put("password", jlsPassword)
+                        put("random", jlsRandom)
+                    })
+                }
+            }
         })
 
         when {
@@ -183,10 +210,19 @@ fun JSONObject.parseTrojanGo(): TrojanGoBean {
                 alpn = join("\n")
             }
             utlsFingerprint = optString("fingerprint", utlsFingerprint)
+            serverSecurity = "tls"
             optJSONArray("reality")?.apply {
                 if (optBoolean("enabled", false)) {
+                    serverSecurity = "reality"
                     realityPubKey = optString("public_key", realityPubKey)
                     realityShortId = optString("short_id", realityShortId)
+                }
+            }
+            optJSONArray("jls")?.apply {
+                if (optBoolean("enabled", false)) {
+                    serverSecurity = "jls"
+                    jlsPassword = optString("password", jlsPassword)
+                    jlsRandom = optString("random", jlsRandom)
                 }
             }
         }
