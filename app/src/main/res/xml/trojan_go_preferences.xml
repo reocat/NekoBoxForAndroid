@@ -68,12 +68,12 @@
             app:dialogLayout="@layout/layout_password_dialog"
             app:icon="@drawable/ic_baseline_vpn_key_24"
             app:key="jlsPassword"
-            app:title="@string/jls_password"
+            app:title="@string/jls_password" />
         <EditTextPreference
             app:dialogLayout="@layout/layout_password_dialog"
             app:icon="@drawable/ic_baseline_texture_24"
             app:key="jlsRandom"
-            app:title="@string/jls_random"
+            app:title="@string/jls_random" />
         <moe.matsuri.nb4a.ui.SimpleMenuPreference
             app:defaultValue="none"
             app:entries="@array/trojan_go_networks_entry"
