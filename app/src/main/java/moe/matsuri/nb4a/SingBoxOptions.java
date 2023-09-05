@@ -56,6 +56,8 @@ public class SingBoxOptions {
 
         public String default_mode;
 
+        public Boolean store_mode;
+
         public Boolean store_selected;
 
         public Boolean store_fakeip;
@@ -63,6 +65,8 @@ public class SingBoxOptions {
         public String cache_file;
 
         public String cache_id;
+
+        // Generate note: option type:  public List<String> ModeList;
 
     }
 
@@ -152,6 +156,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
         // Generate note: option type:  public Boolean UDPFragmentDefault;
@@ -205,6 +211,8 @@ public class SingBoxOptions {
         public Long connect_timeout;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -309,6 +317,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
         // Generate note: option type:  public Boolean UDPFragmentDefault;
@@ -390,6 +400,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
         // Generate note: option type:  public Boolean UDPFragmentDefault;
@@ -438,6 +450,128 @@ public class SingBoxOptions {
 
     }
 
+    public static class Hysteria2InboundOptions extends SingBoxOption {
+
+        // Generate note: nested type ListenOptions
+        public String listen;
+
+        public Integer listen_port;
+
+        public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
+
+        public Boolean udp_fragment;
+
+        // Generate note: option type:  public Boolean UDPFragmentDefault;
+
+        public Long udp_timeout;
+
+        public Boolean proxy_protocol;
+
+        public Boolean proxy_protocol_accept_no_header;
+
+        public String detour;
+
+        // Generate note: nested type InboundOptions
+        public Boolean sniff;
+
+        public Boolean sniff_override_destination;
+
+        public Long sniff_timeout;
+
+        public String domain_strategy;
+
+        // End of public InboundOptions ;
+
+        // End of public ListenOptions ;
+
+        public Integer up_mbps;
+
+        public Integer down_mbps;
+
+        public Hysteria2Obfs obfs;
+
+        public List<Hysteria2User> users;
+
+        public Boolean ignore_client_bandwidth;
+
+        public InboundTLSOptions tls;
+
+        public String masquerade;
+
+    }
+
+    public static class Hysteria2Obfs extends SingBoxOption {
+
+        public String type;
+
+        public String password;
+
+    }
+
+    public static class Hysteria2User extends SingBoxOption {
+
+        public String name;
+
+        public String password;
+
+    }
+
+    public static class Hysteria2OutboundOptions extends SingBoxOption {
+
+        // Generate note: nested type DialerOptions
+        public String detour;
+
+        public String bind_interface;
+
+        public String inet4_bind_address;
+
+        public String inet6_bind_address;
+
+        public String protect_path;
+
+        public Integer routing_mark;
+
+        public Boolean reuse_addr;
+
+        public Long connect_timeout;
+
+        public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
+
+        public Boolean udp_fragment;
+
+        // Generate note: option type:  public Boolean UDPFragmentDefault;
+
+        public String domain_strategy;
+
+        public Long fallback_delay;
+
+        // End of public DialerOptions ;
+
+        // Generate note: nested type ServerOptions
+        public String server;
+
+        public Integer server_port;
+
+        // End of public ServerOptions ;
+
+        public Integer up_mbps;
+
+        public Integer down_mbps;
+
+        public Hysteria2Obfs obfs;
+
+        public String password;
+
+        public String network;
+
+        public OutboundTLSOptions tls;
+
+    }
+
 
     public static class Inbound extends SingBoxOption {
 
@@ -475,6 +609,8 @@ public class SingBoxOptions {
 
         // Generate note: option type:  public TUICInboundOptions TUICOptions;
 
+        // Generate note: option type:  public Hysteria2InboundOptions Hysteria2Options;
+
     }
 
     public static class InboundOptions extends SingBoxOption {
@@ -496,6 +632,8 @@ public class SingBoxOptions {
         public Integer listen_port;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -530,6 +668,8 @@ public class SingBoxOptions {
         public Integer listen_port;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -598,6 +738,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
         // Generate note: option type:  public Boolean UDPFragmentDefault;
@@ -645,6 +787,8 @@ public class SingBoxOptions {
 
         // Generate note: option type:  public TUICOutboundOptions TUICOptions;
 
+        // Generate note: option type:  public Hysteria2OutboundOptions Hysteria2Options;
+
         // Generate note: option type:  public SelectorOutboundOptions SelectorOptions;
 
         // Generate note: option type:  public URLTestOutboundOptions URLTestOptions;
@@ -677,6 +821,8 @@ public class SingBoxOptions {
         public Long connect_timeout;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -749,6 +895,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
         // Generate note: option type:  public Boolean UDPFragmentDefault;
@@ -784,6 +932,8 @@ public class SingBoxOptions {
         public Integer listen_port;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -1076,6 +1226,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
         // Generate note: option type:  public Boolean UDPFragmentDefault;
@@ -1157,6 +1309,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
         // Generate note: option type:  public Boolean UDPFragmentDefault;
@@ -1211,6 +1365,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
         // Generate note: option type:  public Boolean UDPFragmentDefault;
@@ -1252,6 +1408,8 @@ public class SingBoxOptions {
         public Integer listen_port;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -1328,6 +1486,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
         // Generate note: option type:  public Boolean UDPFragmentDefault;
@@ -1360,6 +1520,8 @@ public class SingBoxOptions {
         public Long connect_timeout;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -1394,6 +1556,8 @@ public class SingBoxOptions {
         public Integer listen_port;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -1432,6 +1596,8 @@ public class SingBoxOptions {
         public Integer listen_port;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -1487,6 +1653,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
         // Generate note: option type:  public Boolean UDPFragmentDefault;
@@ -1537,6 +1705,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
         // Generate note: option type:  public Boolean UDPFragmentDefault;
@@ -1586,6 +1756,8 @@ public class SingBoxOptions {
         public Long connect_timeout;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -1642,15 +1814,19 @@ public class SingBoxOptions {
         // Generate note: Listable
         public List<String> cipher_suites;
 
-        public String certificate;
+        // Generate note: Listable
+        public List<String> certificate;
 
         public String certificate_path;
 
-        public String key;
+        // Generate note: Listable
+        public List<String> key;
 
         public String key_path;
 
         public InboundACMEOptions acme;
+
+        public InboundECHOptions ech;
 
         public InboundRealityOptions reality;
 
@@ -1731,6 +1907,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
         // Generate note: option type:  public Boolean UDPFragmentDefault;
@@ -1743,6 +1921,21 @@ public class SingBoxOptions {
 
     }
 
+    public static class InboundECHOptions extends SingBoxOption {
+
+        public Boolean enabled;
+
+        public Boolean pq_signature_schemes_enabled;
+
+        public Boolean dynamic_record_sizing_disabled;
+
+        // Generate note: Listable
+        public List<String> key;
+
+        public String key_path;
+
+    }
+
     public static class OutboundECHOptions extends SingBoxOption {
 
         public Boolean enabled;
@@ -1751,7 +1944,10 @@ public class SingBoxOptions {
 
         public Boolean dynamic_record_sizing_disabled;
 
-        public String config;
+        // Generate note: Listable
+        public List<String> config;
+
+        public String config_path;
 
     }
 
@@ -1827,6 +2023,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
         // Generate note: option type:  public Boolean UDPFragmentDefault;
@@ -1855,6 +2053,8 @@ public class SingBoxOptions {
         public Integer listen_port;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -1922,6 +2122,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
         // Generate note: option type:  public Boolean UDPFragmentDefault;
@@ -1959,6 +2161,8 @@ public class SingBoxOptions {
         public Integer listen_port;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -2030,6 +2234,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
         // Generate note: option type:  public Boolean UDPFragmentDefault;
@@ -2054,6 +2260,8 @@ public class SingBoxOptions {
         public String congestion_control;
 
         public String udp_relay_mode;
+
+        public Boolean udp_over_stream;
 
         public Boolean zero_rtt_handshake;
 
@@ -2086,6 +2294,12 @@ public class SingBoxOptions {
 
         // Generate note: Listable
         public List<String> inet6_route_address;
+
+        // Generate note: Listable
+        public List<String> include_interface;
+
+        // Generate note: Listable
+        public List<String> exclude_interface;
 
         // Generate note: Listable
         public List<Integer> include_uid;
@@ -2245,6 +2459,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
         // Generate note: option type:  public Boolean UDPFragmentDefault;
@@ -2309,6 +2525,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
         // Generate note: option type:  public Boolean UDPFragmentDefault;
@@ -2350,6 +2568,8 @@ public class SingBoxOptions {
         public Integer listen_port;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -2415,6 +2635,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
         // Generate note: option type:  public Boolean UDPFragmentDefault;
@@ -2474,6 +2696,8 @@ public class SingBoxOptions {
         public Long connect_timeout;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -2562,6 +2786,12 @@ public class SingBoxOptions {
         public List<String> inet6_route_address;
 
         // Generate note: Listable
+        public List<String> include_interface;
+
+        // Generate note: Listable
+        public List<String> exclude_interface;
+
+        // Generate note: Listable
         public List<Integer> include_uid;
 
         // Generate note: Listable
@@ -2612,6 +2842,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
 
@@ -2646,6 +2878,8 @@ public class SingBoxOptions {
         public Integer listen_port;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -2683,6 +2917,8 @@ public class SingBoxOptions {
         public Integer listen_port;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -2725,6 +2961,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
 
@@ -2761,6 +2999,8 @@ public class SingBoxOptions {
         public Integer listen_port;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -2803,6 +3043,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
 
@@ -2843,6 +3085,8 @@ public class SingBoxOptions {
         public Integer listen_port;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -2889,6 +3133,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
 
@@ -2929,6 +3175,8 @@ public class SingBoxOptions {
         public Integer listen_port;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -2975,6 +3223,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
 
@@ -3015,6 +3265,8 @@ public class SingBoxOptions {
         public Integer listen_port;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -3073,6 +3325,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
 
@@ -3120,6 +3374,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
 
@@ -3161,6 +3417,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
 
@@ -3199,6 +3457,57 @@ public class SingBoxOptions {
 
     }
 
+    public static class Inbound_Hysteria2Options extends Inbound {
+
+        // Generate note: nested type ListenOptions
+        public String listen;
+
+        public Integer listen_port;
+
+        public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
+
+        public Boolean udp_fragment;
+
+
+        public Long udp_timeout;
+
+        public Boolean proxy_protocol;
+
+        public Boolean proxy_protocol_accept_no_header;
+
+        public String detour;
+
+        // Generate note: nested type InboundOptions
+        public Boolean sniff;
+
+        public Boolean sniff_override_destination;
+
+        public Long sniff_timeout;
+
+        public String domain_strategy;
+
+        // End of public InboundOptions ;
+
+        // End of public ListenOptions ;
+
+        public Integer up_mbps;
+
+        public Integer down_mbps;
+
+        public Hysteria2Obfs obfs;
+
+        public List<Hysteria2User> users;
+
+        public Boolean ignore_client_bandwidth;
+
+        public InboundTLSOptions tls;
+
+        public String masquerade;
+
+    }
+
     public static class Outbound_DirectOptions extends Outbound {
 
         // Generate note: nested type DialerOptions
@@ -3219,6 +3528,8 @@ public class SingBoxOptions {
         public Long connect_timeout;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -3257,6 +3568,8 @@ public class SingBoxOptions {
         public Long connect_timeout;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -3307,6 +3620,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
 
@@ -3355,6 +3670,8 @@ public class SingBoxOptions {
         public Long connect_timeout;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -3409,6 +3726,8 @@ public class SingBoxOptions {
         public Long connect_timeout;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -3469,6 +3788,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
 
@@ -3517,6 +3838,8 @@ public class SingBoxOptions {
         public Long connect_timeout;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -3580,6 +3903,8 @@ public class SingBoxOptions {
         public Long connect_timeout;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -3649,6 +3974,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
 
@@ -3688,6 +4015,8 @@ public class SingBoxOptions {
         public Long connect_timeout;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -3746,6 +4075,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
 
@@ -3790,6 +4121,8 @@ public class SingBoxOptions {
         public Long connect_timeout;
 
         public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
 
         public Boolean udp_fragment;
 
@@ -3844,6 +4177,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
 
@@ -3897,6 +4232,8 @@ public class SingBoxOptions {
 
         public Boolean tcp_fast_open;
 
+        public Boolean tcp_multi_path;
+
         public Boolean udp_fragment;
 
 
@@ -3921,9 +4258,64 @@ public class SingBoxOptions {
 
         public String udp_relay_mode;
 
+        public Boolean udp_over_stream;
+
         public Boolean zero_rtt_handshake;
 
         public Long heartbeat;
+
+        public String network;
+
+        public OutboundTLSOptions tls;
+
+    }
+
+    public static class Outbound_Hysteria2Options extends Outbound {
+
+        // Generate note: nested type DialerOptions
+        public String detour;
+
+        public String bind_interface;
+
+        public String inet4_bind_address;
+
+        public String inet6_bind_address;
+
+        public String protect_path;
+
+        public Integer routing_mark;
+
+        public Boolean reuse_addr;
+
+        public Long connect_timeout;
+
+        public Boolean tcp_fast_open;
+
+        public Boolean tcp_multi_path;
+
+        public Boolean udp_fragment;
+
+
+        public String domain_strategy;
+
+        public Long fallback_delay;
+
+        // End of public DialerOptions ;
+
+        // Generate note: nested type ServerOptions
+        public String server;
+
+        public Integer server_port;
+
+        // End of public ServerOptions ;
+
+        public Integer up_mbps;
+
+        public Integer down_mbps;
+
+        public Hysteria2Obfs obfs;
+
+        public String password;
 
         public String network;
 
