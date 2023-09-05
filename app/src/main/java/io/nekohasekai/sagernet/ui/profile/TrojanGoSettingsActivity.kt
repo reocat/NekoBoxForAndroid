@@ -108,6 +108,13 @@ class TrojanGoSettingsActivity : ProfileSettingsActivity<TrojanGoBean>() {
         jlsPassword = findPreference("jlsPassword")!!
         jlsRandom = findPreference("jlsRandom")!!
 
+        jlsPassword.apply {
+            summaryProvider = PasswordSummaryProvider
+        }
+        jlsRandom.apply {
+            summaryProvider = PasswordSummaryProvider
+        }
+
         if (security.value !in securities) {
             security.value = securities[0]
         }
