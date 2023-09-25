@@ -29,6 +29,13 @@ pushd sing-box
 git checkout "$COMMIT_SING_BOX"
 popd
 
+if [ ! -d "sing" ]; then
+  git clone --no-checkout https://github.com/arm64v8a/sing.git
+fi
+pushd sing
+git checkout "$COMMIT_SING"
+popd
+
 ####
 if [ ! -d "libneko" ]; then
   git clone --no-checkout https://github.com/MatsuriDayo/libneko.git
