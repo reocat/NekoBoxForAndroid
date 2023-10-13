@@ -257,7 +257,7 @@ class AssetsActivity : ThemedActivity() {
             if (file.name == assetNames[0]) {
                 repo = "SagerNet/sing-geoip"
             } else {
-                repo = "SagerNet/sing-geosite"
+                repo = "maskedeken/sing-geosite"
             }
         } else if (DataStore.rulesProvider == 1) {
             if (file.name == assetNames[0]) {
