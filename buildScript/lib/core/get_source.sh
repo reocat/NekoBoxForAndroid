@@ -31,6 +31,15 @@ git checkout "$COMMIT_SING_BOX"
 popd
 
 ####
+if [ ! -d "sing-quic" ]; then
+	git clone --no-checkout https://github.com/MatsuriDayo/sing-quic.git
+fi
+pushd sing-quic
+git fetch --all
+git checkout "$COMMIT_SING_QUIC"
+popd
+
+####
 if [ ! -d "libneko" ]; then
   git clone --no-checkout https://github.com/MatsuriDayo/libneko.git
 fi
