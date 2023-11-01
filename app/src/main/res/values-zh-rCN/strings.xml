@@ -344,7 +344,7 @@
     <string name="apps_message">%d 个应用</string>
     <string name="hysteria_obfs">混淆密码</string>
     <string name="hysteria_auth_type">认证类型</string>
-    <string name="hysteria_auth_payload">认证载荷</string>
+    <string name="hysteria_auth_payload">认证密码</string>
     <string name="hysteria_upload_mbps">最大上行 (Mbps)</string>
     <string name="hysteria_download_mbps">最大下行 (Mbps)</string>
     <string name="experimental_settings">实验性</string>
@@ -485,4 +485,11 @@
 
     <string name="jls_password">JLS密码</string>
     <string name="jls_random">JLS随机数</string>
+    <string name="enable_ech">启用 ECH 技术支持</string>
+    <string name="enable_ech_sum">启用 ECH</string>
+    <string name="ech_settings">ECH 设置</string>
+    <string name="pq_signature_schemes_enabled">启用对后量子对等证书签名方案支持</string>
+    <string name="dynamic_record_sizing_disabled">禁用TLS记录的自适应调整大小</string>
+    <string name="dynamic_record_sizing_sum">如果启用，将始终使用最大可能的TLS记录大小。当禁用时，TLS记录的大小可能会进行调整以尝试提高延迟。</string>
+    <string name="ech_config">ECH 配置</string>
 </resources>
