@@ -398,7 +398,7 @@ fun buildConfig(
                                     2 -> "yamux"
                                     else -> "h2mux"
                                 }
-                            }
+                            }.asMap()
                         }
 
                         if (needGlobal && DataStore.enableTLSFragment) {
