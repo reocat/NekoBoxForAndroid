@@ -3,7 +3,6 @@ package moe.matsuri.nb4a.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Base64
-import moe.matsuri.nb4a.SingBoxOptions.SingBoxOption
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
@@ -119,12 +118,8 @@ object Util {
         if (j.isBlank()) return
         val m = JavaUtil.gson.fromJson(j, to.javaClass)
         m.forEach { (k, v) ->
-            if (v is Map<*, *>) {
-                val currentMap = when (to[k]) {
-                    is SingBoxOption -> ((to[k] as SingBoxOption).asMap() as Map<*, *>).toMutableMap()
-                    is Map<*, *> -> (to[k] as Map<*, *>).toMutableMap()
-                    else -> mutableMapOf()
-                }
+            if (v is Map<*, *> && to[k] is Map<*, *>) {
+                val currentMap = (to[k] as Map<*, *>).toMutableMap()
                 currentMap += v
                 to[k] = currentMap
             } else {
