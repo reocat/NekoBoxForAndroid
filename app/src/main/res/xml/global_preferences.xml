@@ -159,6 +159,10 @@
         <SwitchPreference
             app:key="enableTLSFragment"
             app:title="@string/enable_tls_fragment" />
+        <SwitchPreference
+            app:key="globalAllowInsecure"
+            app:icon="@drawable/ic_action_lock_open"
+            app:title="@string/global_allow_insecure" />
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/cag_dns">
@@ -263,5 +267,8 @@
         <SwitchPreference
             app:key="showBottomBar"
             app:title="@string/show_bottom_bar" />
+        <SwitchPreference
+            app:key="allowInsecureOnRequest"
+            app:title="@string/allow_insecure_on_request_sum" />
     </PreferenceCategory>
 </PreferenceScreen>
