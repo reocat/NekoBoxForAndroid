@@ -37,6 +37,7 @@ https://matsuridayo.github.io
 * Trojan-Go (trojan-go-plugin)
 * NaïveProxy (naive-plugin)
 * Hysteria (hysteria-plugin)
+* Mieru (mieru-plugin)
 * TUIC
 
 请到[这里](https://matsuridayo.github.io/m-plugin/)下载插件以获得完整的代理支持.
@@ -63,9 +64,6 @@ USDT TRC20
 XMR
 
 `49bwESYQjoRL3xmvTcjZKHEKaiGywjLYVQJMUv79bXonGiyDCs8AzE3KiGW2ytTybBCpWJUvov8SjZZEGg66a4e59GXa6k5`
-
-* 您也可以通过 [Google Play](https://play.google.com/store/apps/details?id=moe.nb4a) 购买捐赠, 另有支付宝微信购买方式, 见 Telegram 频道置顶.
-* Donating via [Google Play](https://play.google.com/store/apps/details?id=moe.nb4a), using credit cards.
 
 ## Credits
 
