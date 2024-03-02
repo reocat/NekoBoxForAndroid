@@ -163,6 +163,10 @@ object DataStore : OnPreferenceDataStoreChangeListener {
     var muxConcurrency by configurationStore.stringToInt(Key.MUX_CONCURRENCY) { 8 }
     var globalAllowInsecure by configurationStore.boolean(Key.GLOBAL_ALLOW_INSECURE) { false }
 
+    var enableTLSFragment by configurationStore.boolean(Key.ENABLE_TLS_FRAGMENT) { false }
+    var fragmentLength by configurationStore.string(Key.FRAGMENT_LENGTH) { "200" }
+    var fragmentInterval by configurationStore.string(Key.FRAGMENT_INTERVAL) { "10-20" }
+
     // old cache, DO NOT ADD
 
     var dirty by profileCacheStore.boolean(Key.PROFILE_DIRTY)
@@ -249,7 +253,6 @@ object DataStore : OnPreferenceDataStoreChangeListener {
     var rulesFirstCreate by profileCacheStore.boolean("rulesFirstCreate")
 
     var utlsFingerprint by profileCacheStore.string(Key.UTLS_FINGERPRINT)
-    var enableTLSFragment by configurationStore.boolean(Key.ENABLE_TLS_FRAGMENT)
 
     override fun onPreferenceDataStoreChanged(store: PreferenceDataStore, key: String) {
     }

@@ -573,7 +573,10 @@
 
     <string name="reduced_iv_head_entropy">This is GFWReport\'s proposal for a countermeasure for the random stream like protocol blocking behaviour observed on GFW.
 \n\nThis option remap the first 6 bytes of IV to printable characters, it\'s possible for anyone on the privileged network path to identify the protocol when enabled.</string>
+    <string name="fragment_settings">Fragment Settings</string>
     <string name="enable_tls_fragment">Enable TLS Client Hello Fragment</string>
+    <string name="fragment_length">Fragment Length (min-max)</string>
+    <string name="fragment_interval">Fragment Interval (min-max)</string>
 
     <string name="jls_password">JLS Password</string>
     <string name="jls_random">JLS IV</string>

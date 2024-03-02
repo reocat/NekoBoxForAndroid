@@ -156,6 +156,8 @@ object Key {
 
     const val UTLS_FINGERPRINT = "utlsFingerprint"
     const val ENABLE_TLS_FRAGMENT = "enableTLSFragment"
+    const val FRAGMENT_LENGTH = "fragmentLength"
+    const val FRAGMENT_INTERVAL = "fragmentInterval"
 }
 
 object TunImplementation {
