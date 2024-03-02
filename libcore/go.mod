@@ -93,13 +93,13 @@ require (
 	lukechampine.com/blake3 v1.2.1 // indirect
 )
 
-replace github.com/matsuridayo/libneko => ../../libneko
+replace github.com/matsuridayo/libneko => github.com/matsuridayo/libneko v0.0.0-20230913024055-5277a5bfc889
 
-replace github.com/matsuridayo/sing-box-extra => ../../sing-box-extra
+replace github.com/matsuridayo/sing-box-extra => github.com/maskedeken/sing-box-extra v0.0.0-20240302091347-a72459a12935
 
-replace github.com/sagernet/sing-box => ../../sing-box
+replace github.com/sagernet/sing-box => github.com/maskedeken/sing-box v0.0.0-20240301132409-b6a0fb0e58da
 
-replace github.com/sagernet/sing-quic => ../../sing-quic
+replace github.com/sagernet/sing-quic => github.com/maskedeken/sing-quic v0.0.0-20240302084357-d1585a3b36f1
 
 // replace github.com/sagernet/sing => ../../sing
 
