@@ -251,8 +251,8 @@ class AssetsActivity : ThemedActivity() {
 
     private val rulesProviders = listOf(
         RuleAssetsProvider(
-            "SagerNet/sing-geoip",
-            "SagerNet/sing-geosite",
+            "maskedeken/sing-geoip",
+            "maskedeken/sing-geosite",
         ),
         RuleAssetsProvider(
             "soffchen/sing-geoip",
