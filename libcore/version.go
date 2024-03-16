@@ -5,5 +5,5 @@ import (
 )
 
 func init() {
-	boxbox.Version = "1.8.8"
+	boxbox.Version = "1.8.9"
 }

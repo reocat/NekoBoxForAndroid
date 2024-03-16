@@ -6,14 +6,17 @@ require (
 	github.com/matsuridayo/libneko v1.0.0 // replaced
 	github.com/matsuridayo/sing-box-extra v1.0.0 // replaced
 	github.com/miekg/dns v1.1.58
-	github.com/sagernet/sing v0.3.5
+	github.com/sagernet/sing v0.3.6
 	github.com/sagernet/sing-box v1.0.0 // replaced
 	github.com/sagernet/sing-dns v0.1.12
-	github.com/sagernet/sing-tun v0.2.3
+	github.com/sagernet/sing-tun v0.2.4
 	github.com/ulikunitz/xz v0.5.11
 )
 
-require github.com/oschwald/maxminddb-golang v1.12.0
+require (
+	github.com/oschwald/maxminddb-golang v1.12.0
+	github.com/sagernet/gomobile v0.1.3
+)
 
 require (
 	berty.tech/go-libtor v1.0.385 // indirect
@@ -53,7 +56,6 @@ require (
 	github.com/quic-go/qpack v0.4.0 // indirect
 	github.com/quic-go/qtls-go1-20 v0.4.1 // indirect
 	github.com/sagernet/cloudflare-tls v0.0.0-20231208171750-a4483c1b7cd1 // indirect
-	github.com/sagernet/gomobile v0.1.3 // indirect
 	github.com/sagernet/gvisor v0.0.0-20231209105102-8d27a30e436e // indirect
 	github.com/sagernet/netlink v0.0.0-20220905062125-8043b4a9aa97 // indirect
 	github.com/sagernet/quic-go v0.41.0-beta.2 // indirect
@@ -78,18 +80,18 @@ require (
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
 	go4.org/netipx v0.0.0-20231129151722-fdeea329fbba // indirect
-	golang.org/x/crypto v0.20.0 // indirect
+	golang.org/x/crypto v0.21.0 // indirect
 	golang.org/x/exp v0.0.0-20240205201215-2c58cdc269a3 // indirect
 	golang.org/x/mod v0.14.0 // indirect
-	golang.org/x/net v0.21.0 // indirect
+	golang.org/x/net v0.22.0 // indirect
 	golang.org/x/sys v0.18.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 	golang.org/x/time v0.5.0 // indirect
 	golang.org/x/tools v0.17.0 // indirect
 	golang.zx2c4.com/wireguard/wgctrl v0.0.0-20230429144221-925a1e7659e6 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240123012728-ef4313101c80 // indirect
-	google.golang.org/grpc v1.62.0 // indirect
-	google.golang.org/protobuf v1.32.0 // indirect
+	google.golang.org/grpc v1.62.1 // indirect
+	google.golang.org/protobuf v1.33.0 // indirect
 	lukechampine.com/blake3 v1.2.1 // indirect
 )
 
@@ -97,7 +99,7 @@ replace github.com/matsuridayo/libneko => github.com/matsuridayo/libneko v0.0.0-
 
 replace github.com/matsuridayo/sing-box-extra => github.com/maskedeken/sing-box-extra v0.0.0-20240302091347-a72459a12935
 
-replace github.com/sagernet/sing-box => github.com/maskedeken/sing-box v0.0.0-20240308082053-39d91e4623a0
+replace github.com/sagernet/sing-box => github.com/maskedeken/sing-box v0.0.0-20240316064011-7f88b21e2977
 
 replace github.com/sagernet/sing-quic => github.com/maskedeken/sing-quic v0.0.0-20240302084357-d1585a3b36f1
 
