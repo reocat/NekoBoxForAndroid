@@ -8,8 +8,8 @@ require (
 	github.com/miekg/dns v1.1.58
 	github.com/sagernet/sing v0.3.6
 	github.com/sagernet/sing-box v1.0.0 // replaced
-	github.com/sagernet/sing-dns v0.1.12
-	github.com/sagernet/sing-tun v0.2.4
+	github.com/sagernet/sing-dns v0.1.14
+	github.com/sagernet/sing-tun v0.2.5
 	github.com/ulikunitz/xz v0.5.11
 )
 
@@ -99,7 +99,7 @@ replace github.com/matsuridayo/libneko => github.com/matsuridayo/libneko v0.0.0-
 
 replace github.com/matsuridayo/sing-box-extra => github.com/maskedeken/sing-box-extra v0.0.0-20240302091347-a72459a12935
 
-replace github.com/sagernet/sing-box => github.com/maskedeken/sing-box v0.0.0-20240316064011-7f88b21e2977
+replace github.com/sagernet/sing-box => github.com/maskedeken/sing-box v0.0.0-20240324125445-d4fa3020a12a
 
 replace github.com/sagernet/sing-quic => github.com/maskedeken/sing-quic v0.0.0-20240302084357-d1585a3b36f1
 
