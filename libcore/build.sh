@@ -2,7 +2,7 @@
 
 source ../buildScript/init/env_ndk.sh
 
-gomobile bind -v -androidapi 21 -libname=box -buildvcs=false -trimpath -ldflags='-s -w -buildid=' -tags='with_conntrack,with_gvisor,with_quic,with_wireguard,with_utls,with_clash_api,with_ech' . || exit 1
+gomobile bind -v -androidapi 21 -trimpath -ldflags='-s -w -buildid=' -tags='with_conntrack,with_gvisor,with_quic,with_wireguard,with_utls,with_clash_api,with_ech' . || exit 1
 rm -r libcore-sources.jar
 
 proj=../app/libs
