@@ -9,7 +9,7 @@ require (
 	github.com/sagernet/sing v0.3.8
 	github.com/sagernet/sing-box v1.0.0 // replaced
 	github.com/sagernet/sing-dns v0.1.14
-	github.com/sagernet/sing-tun v0.2.6
+	github.com/sagernet/sing-tun v0.2.7
 	github.com/ulikunitz/xz v0.5.11
 	golang.org/x/mobile v0.0.0-20231108233038-35478a0c49da
 )
@@ -94,9 +94,9 @@ require (
 
 replace github.com/matsuridayo/libneko => github.com/matsuridayo/libneko v0.0.0-20230913024055-5277a5bfc889
 
-replace github.com/matsuridayo/sing-box-extra => github.com/maskedeken/sing-box-extra v0.0.0-20240428045151-448948b6b2b0
+replace github.com/matsuridayo/sing-box-extra => github.com/maskedeken/sing-box-extra v0.0.0-20240504030700-b5ae1396f9fe
 
-replace github.com/sagernet/sing-box => github.com/maskedeken/sing-box v0.0.0-20240428044855-6359d981295d
+replace github.com/sagernet/sing-box => github.com/maskedeken/sing-box v0.0.0-20240504030512-ca3163f32a55
 
 replace github.com/sagernet/sing-quic => github.com/maskedeken/sing-quic v0.0.0-20240428044635-99c39bf7adf9
 
