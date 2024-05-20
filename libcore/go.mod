@@ -94,11 +94,11 @@ require (
 
 replace github.com/matsuridayo/libneko => github.com/matsuridayo/libneko v0.0.0-20230913024055-5277a5bfc889
 
-replace github.com/matsuridayo/sing-box-extra => github.com/maskedeken/sing-box-extra v0.0.0-20240504030700-b5ae1396f9fe
+replace github.com/matsuridayo/sing-box-extra => github.com/maskedeken/sing-box-extra v0.0.0-20240520053054-1eb26b24334a
 
-replace github.com/sagernet/sing-box => github.com/maskedeken/sing-box v0.0.0-20240504030512-ca3163f32a55
+replace github.com/sagernet/sing-box => github.com/maskedeken/sing-box v0.0.0-20240520052822-ffda3ce94e1e
 
-replace github.com/sagernet/sing-quic => github.com/maskedeken/sing-quic v0.0.0-20240428044635-99c39bf7adf9
+replace github.com/sagernet/sing-quic => github.com/maskedeken/sing-quic v0.0.0-20240520052601-721a878e3dc6
 
 // replace github.com/sagernet/sing => ../../sing
 
