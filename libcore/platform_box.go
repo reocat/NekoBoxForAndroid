@@ -14,6 +14,7 @@ import (
 	"github.com/sagernet/sing-box/adapter"
 	"github.com/sagernet/sing-box/common/process"
 	"github.com/sagernet/sing-box/experimental/libbox/platform"
+	singlog "github.com/sagernet/sing-box/log"
 	"github.com/sagernet/sing-box/option"
 	tun "github.com/sagernet/sing-tun"
 	"github.com/sagernet/sing/common/control"
@@ -22,7 +23,9 @@ import (
 	N "github.com/sagernet/sing/common/network"
 )
 
-var boxPlatformInterfaceInstance platform.Interface = &boxPlatformInterfaceWrapper{}
+var boxPlatformInterfaceInstance = &boxPlatformInterfaceWrapper{}
+var _ platform.Interface = boxPlatformInterfaceInstance
+var _ singlog.PlatformWriter = boxPlatformInterfaceInstance
 
 type boxPlatformInterfaceWrapper struct{}
 
@@ -90,7 +93,7 @@ func (w *boxPlatformInterfaceWrapper) UsePlatformInterfaceGetter() bool {
 	return false
 }
 
-func (w *boxPlatformInterfaceWrapper) Interfaces() ([]platform.NetworkInterface, error) {
+func (w *boxPlatformInterfaceWrapper) Interfaces() ([]control.Interface, error) {
 	return nil, errors.New("wtf")
 }
 
@@ -101,6 +104,10 @@ func (w *boxPlatformInterfaceWrapper) UnderNetworkExtension() bool {
 }
 
 func (w *boxPlatformInterfaceWrapper) ClearDNSCache() {
+}
+
+func (w *boxPlatformInterfaceWrapper) IncludeAllNetworks() bool {
+	return false
 }
 
 // process.Searcher
@@ -136,10 +143,12 @@ func (w *boxPlatformInterfaceWrapper) FindProcessInfo(ctx context.Context, netwo
 
 var disableSingBoxLog = false
 
-func (w *boxPlatformInterfaceWrapper) Write(p []byte) (n int, err error) {
-	// use neko_log
+func (w *boxPlatformInterfaceWrapper) WriteMessage(level singlog.Level, message string) {
 	if !disableSingBoxLog {
-		log.Print(string(p))
+		log.Print(message)
 	}
-	return len(p), nil
+}
+
+func (w *boxPlatformInterfaceWrapper) DisableColors() bool {
+	return true
 }

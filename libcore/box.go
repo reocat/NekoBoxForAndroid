@@ -22,6 +22,7 @@ import (
 	"github.com/sagernet/sing-box/common/conntrack"
 	"github.com/sagernet/sing-box/option"
 	"github.com/sagernet/sing-box/outbound"
+	"github.com/sagernet/sing/service"
 	"github.com/sagernet/sing/service/pause"
 )
 
@@ -82,13 +83,13 @@ func NewSingBoxInstance(config string) (b *BoxInstance, err error) {
 
 	// create box
 	ctx, cancel := context.WithCancel(context.Background())
-	sleepManager := pause.ManagerFromContext(ctx)
-	//sleepManager := pause.NewDefaultManager(ctx)
-	ctx = pause.ContextWithManager(ctx, sleepManager)
+	ctx = pause.WithDefaultManager(ctx)
+	sleepManager := service.FromContext[pause.Manager](ctx)
 	instance, err := boxbox.New(boxbox.Options{
 		Options:           options,
 		Context:           ctx,
 		PlatformInterface: boxPlatformInterfaceInstance,
+		PlatformWriter:    boxPlatformInterfaceInstance,
 	})
 	if err != nil {
 		cancel()
