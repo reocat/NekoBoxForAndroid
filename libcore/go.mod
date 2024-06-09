@@ -96,7 +96,7 @@ replace github.com/matsuridayo/libneko => github.com/matsuridayo/libneko v0.0.0-
 
 replace github.com/matsuridayo/sing-box-extra => github.com/maskedeken/sing-box-extra v0.0.0-20240528040542-0c7ef561f452
 
-replace github.com/sagernet/sing-box => github.com/maskedeken/sing-box v0.0.0-20240608125053-538053d7fb4b
+replace github.com/sagernet/sing-box => github.com/maskedeken/sing-box v0.0.0-20240609075330-d9cf24dbf04d
 
 replace github.com/sagernet/sing-quic => github.com/maskedeken/sing-quic v0.0.0-20240527050519-78de59df42ec
 
