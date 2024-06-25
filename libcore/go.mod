@@ -55,7 +55,7 @@ require (
 	github.com/sagernet/cloudflare-tls v0.0.0-20231208171750-a4483c1b7cd1 // indirect
 	github.com/sagernet/gvisor v0.0.0-20240428053021-e691de28565f // indirect
 	github.com/sagernet/netlink v0.0.0-20240523065131-45e60152f9ba // indirect
-	github.com/sagernet/quic-go v0.43.1-beta.1 // indirect
+	github.com/sagernet/quic-go v0.43.1-beta.2 // indirect
 	github.com/sagernet/reality v0.0.0-20230406110435-ee17307e7691 // indirect
 	github.com/sagernet/sing-mux v0.2.0 // indirect
 	github.com/sagernet/sing-quic v1.0.0 // indirect
@@ -94,9 +94,9 @@ require (
 
 replace github.com/matsuridayo/libneko => github.com/matsuridayo/libneko v0.0.0-20230913024055-5277a5bfc889
 
-replace github.com/matsuridayo/sing-box-extra => github.com/maskedeken/sing-box-extra v0.0.0-20240528040542-0c7ef561f452
+replace github.com/matsuridayo/sing-box-extra => github.com/maskedeken/sing-box-extra v0.0.0-20240625014839-ae2c1782c537
 
-replace github.com/sagernet/sing-box => github.com/maskedeken/sing-box v0.0.0-20240609075330-d9cf24dbf04d
+replace github.com/sagernet/sing-box => github.com/maskedeken/sing-box v0.0.0-20240609115708-8ba77d91a129
 
 replace github.com/sagernet/sing-quic => github.com/maskedeken/sing-quic v0.0.0-20240527050519-78de59df42ec
 
