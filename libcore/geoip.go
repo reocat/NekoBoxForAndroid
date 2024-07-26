@@ -65,8 +65,20 @@ func (g *Geoip) ConvertGeoip(countryCode, outputPath string) {
 		},
 	}
 
+	upgradedRuleSet, err := plainRuleSet.Upgrade()
+	if err != nil {
+		log.Println("failed to upgrade plainRuleSet:", err)
+		return
+	}
+
 	outputFile, err := os.Create(outputPath)
-	err = srs.Write(outputFile, plainRuleSet.Upgrade())
+	if err != nil {
+		log.Println("failed to create output file:", err)
+		return
+	}
+	defer outputFile.Close()
+
+	err = srs.Write(outputFile, upgradedRuleSet, false)
 	if err != nil {
 		log.Println("failed to write geosite file:", err)
 		return

@@ -33,7 +33,6 @@ func (g *Geosite) CheckGeositeCode(path string, code string) bool {
 
 // ConvertGeosite need to run CheckGeositeCode first
 func (g *Geosite) ConvertGeosite(code string, outputPath string) {
-
 	sourceSet, err := g.geositeReader.Read(code)
 	if err != nil {
 		log.Println("failed to read geosite code:", code, err)
@@ -57,14 +56,26 @@ func (g *Geosite) ConvertGeosite(code string, outputPath string) {
 		},
 	}
 
+	upgradedRuleSet, err := plainRuleSet.Upgrade()
+	if err != nil {
+		log.Println("failed to upgrade plainRuleSet:", err)
+		return
+	}
+
 	outputFile, err := os.Create(outputPath)
-	err = srs.Write(outputFile, plainRuleSet.Upgrade())
+	if err != nil {
+		log.Println("failed to create output file:", err)
+		return
+	}
+	defer outputFile.Close()
+
+	err = srs.Write(outputFile, upgradedRuleSet, false)
 	if err != nil {
 		log.Println("failed to write geosite file:", err)
 		return
 	}
 }
 
-func newGeosite() *Geosite {
+func NewGeosite() *Geosite {
 	return new(Geosite)
 }
