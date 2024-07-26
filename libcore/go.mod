@@ -13,7 +13,7 @@ require (
 	golang.org/x/mobile v0.0.0-20231108233038-35478a0c49da
 )
 
-require github.com/oschwald/maxminddb-golang v1.12.0
+require github.com/oschwald/maxminddb-golang v1.13.1
 
 require (
 	berty.tech/go-libtor v1.0.385 // indirect
