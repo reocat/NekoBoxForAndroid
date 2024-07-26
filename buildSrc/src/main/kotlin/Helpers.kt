@@ -80,7 +80,7 @@ fun Project.requireTargetAbi(): String {
     var targetAbi = ""
     if (gradle.startParameter.taskNames.isNotEmpty()) {
         if (gradle.startParameter.taskNames.size == 1) {
-            val targetTask = gradle.startParameter.taskNames[0].toLowerCase(Locale.ROOT).trim()
+            val targetTask = gradle.startParameter.taskNames[0].lowercase(Locale.ROOT).trim()
             when {
                 targetTask.contains("arm64") -> targetAbi = "arm64-v8a"
                 targetTask.contains("arm") -> targetAbi = "armeabi-v7a"
@@ -95,10 +95,10 @@ fun Project.requireTargetAbi(): String {
 fun Project.setupCommon() {
     android.apply {
         buildToolsVersion = "30.0.3"
-        compileSdk = 33
+        compileSdk = 34
         defaultConfig {
             minSdk = 21
-            targetSdk = 33
+            targetSdk = 34
         }
         buildTypes {
             getByName("release") {

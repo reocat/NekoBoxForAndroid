@@ -12,6 +12,11 @@ setupApp()
 android {
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
+        sourceCompatibility = JavaVersion.VERSION_19
+        targetCompatibility = JavaVersion.VERSION_19
+    }
+    kotlinOptions {
+        jvmTarget = "19"
     }
     kapt.arguments {
         arg("room.incremental", true)
