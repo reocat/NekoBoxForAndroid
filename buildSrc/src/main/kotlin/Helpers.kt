@@ -120,7 +120,7 @@ fun Project.setupCommon() {
             textOutput = project.file("build/lint.txt")
             htmlOutput = project.file("build/lint.html")
         }
-        packagingOptions {
+        packaging {
             resources.excludes.addAll(
                 listOf(
                     "**/*.kotlin_*",
@@ -137,7 +137,7 @@ fun Project.setupCommon() {
                 )
             )
         }
-        packagingOptions {
+        packaging {
             jniLibs.useLegacyPackaging = true
         }
         (this as? AbstractAppExtension)?.apply {
