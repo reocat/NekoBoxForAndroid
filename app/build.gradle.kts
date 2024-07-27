@@ -55,7 +55,7 @@ dependencies {
     implementation("com.google.android.material:material:1.12.0")
     implementation("com.google.code.gson:gson:2.11.0")
 
-    implementation("com.github.jenly1314:zxing-lite:2.4.0")
+    implementation("com.github.jenly1314:zxing-lite:3.2.0")
     implementation("com.blacksquircle.ui:editorkit:2.6.0")
     implementation("com.blacksquircle.ui:language-base:2.6.0")
     implementation("com.blacksquircle.ui:language-json:2.6.0")
