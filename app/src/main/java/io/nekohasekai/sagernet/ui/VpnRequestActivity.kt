@@ -26,7 +26,7 @@ class VpnRequestActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         if (getSystemService<KeyguardManager>()!!.isKeyguardLocked) {
             receiver = broadcastReceiver { _, _ -> connect.launch(null) }
-            registerReceiver(receiver, IntentFilter(Intent.ACTION_USER_PRESENT))
+            registerReceiver(receiver, IntentFilter(Intent.ACTION_USER_PRESENT), Context.RECEIVER_NOT_EXPORTED)
         } else connect.launch(null)
     }
 
@@ -67,6 +67,4 @@ class VpnRequestActivity : AppCompatActivity() {
                 true
             }
     }
-
-
 }
