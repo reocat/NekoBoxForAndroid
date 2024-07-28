@@ -7,7 +7,7 @@ require (
 	github.com/miekg/dns v1.1.61
 	github.com/sagernet/sing v0.5.0-alpha.13.0.20240726000009-a2f9fef93663
 	github.com/sagernet/sing-box v1.9.3 // replaced
-	github.com/sagernet/sing-dns v0.3.0-beta.12
+	github.com/sagernet/sing-dns v0.3.0-beta.14
 	github.com/sagernet/sing-tun v0.4.0-beta.13.0.20240703164908-1f043289199d
 	github.com/ulikunitz/xz v0.5.11
 	golang.org/x/mobile v0.0.0-20231108233038-35478a0c49da
